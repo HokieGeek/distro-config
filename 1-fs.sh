@@ -4,19 +4,20 @@ echo "Remember to add tons to /mnt!!"
 
 rootDir=/mnt
 
-root=$1
-swap=$2
-home=$3
+device=$1
+root=$2
+swap=$3
+home=$4
 
-cfdisk /dev/sda
+cfdisk ${device}
 
 echo "Setting filesystems"
-mkfs.ext4 /dev/$1
-mkfs.ext4 /dev/$3
-mkswap /dev/$2
-swapon /dev/$2
+mkfs.ext4 /dev/${root}
+mkfs.ext4 /dev/${home}
+mkswap /dev/${swap}
+swapon /dev/${swap}
 
-lsblk /dev/sda
+lsblk ${device}
 
 echo "Mounting partitions"
 mkdir ${rootDir}

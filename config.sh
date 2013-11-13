@@ -4,10 +4,9 @@ mydir=(cd `dirname $0`; pwd)
 
 myuser=andres
 
-${mydir}/1-fs.sh sda1 sda2 sda3
+${mydir}/1-fs.sh sda sda1 sda2 sda3
 
-arch-chroot /mnt
-
+arch-chroot /mnt \
 (. ${mydir}/2-locale.sh &&
 ${mydir}/3-packaging.sh &&
 ${mydir}/4-user.sh $myuser &&
