@@ -1,5 +1,6 @@
 #!/bin/sh
-
+echo "Setting up the filesystem."
+echo "Remember to add tons to sda1!"
 cfdisk /dev/sda
 mkfs.ext4 /dev/sda1
 mkfs.ext4 /dev/sda3

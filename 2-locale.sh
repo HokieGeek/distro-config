@@ -1,6 +1,5 @@
 #!/bin/sh
 
-arch-chroot /mnt
 echo "Uncomment: en_US.UTF-8"
 vi /etc/locale.gen
 locale-gen
