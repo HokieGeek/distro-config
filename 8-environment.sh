@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun zsh terminator xcompmgr alsa-utils ttf-dejavu xclip minicom feh openssh rsync
+sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun terminator xcompmgr ttf-dejavu xclip feh
 
 echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > ~/.zprofile
 

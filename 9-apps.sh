@@ -2,16 +2,13 @@
 
 sudo yaourt -S pipelight
 
-zsh
+minicom openssh rsync
+
 chromium
-terminator
-xclip
-minicom
-feh
 gvim
 gimp
 vlc
-conky
 git
+
 #eclipse
 #arduino ide
