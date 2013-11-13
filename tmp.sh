@@ -109,7 +109,7 @@ sudo yaourt -S pipelight
 echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > ~/.zprofile
 
 vi ~/.xinitrc
-dropboxd &&
+#dropboxd &&
 # xsetroot -cursor_name left_ptr &&
 # exec xmonad
 
