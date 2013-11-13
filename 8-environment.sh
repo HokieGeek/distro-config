@@ -2,10 +2,13 @@
 
 echo "Installing window manager"
 sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu terminator feh dash
+echo "Installing display/login manager"
+sudo pacman -S slim slim-themes archlinux-themes-slim
+systemctl enable slim.service
 
 echo "Enabling suspension on lid closing"
-# Suspend on lid close
-vi /etc/acpi/lid.sh
+cp /{etc/acpi,tmp}/lid.sh
+sed -e 's;/usr/share/acpi-support/screenblank;echo -n mem > /sys/power/state;' /tmp/lid.sh > /etc/acpi/lid.sh
 # Replace: . /usr/share/acpi-support/screenblank
 #    with: echo -n mem > /sys/power/state
 
