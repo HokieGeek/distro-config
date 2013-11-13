@@ -83,7 +83,7 @@ cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 grub-mkconfig -o /boot/grub/grub.cfg
 # }}}
 
-echo "Exit out of chroot"
+exit
 
 umount /mnt/home
 umount /mnt
@@ -102,15 +102,20 @@ systemctl enable net-auto-wireless.service
 sudo pacman -S xorg-server xorg-xinit xorg-utils xorg-server-utils mesa xf86-video-intel xf86-input-synaptics lib32-mesa-libgl xorg-twm xorg-xclock xterm 
 # }}}
 
+#-- Environment --# {{{
 sudo pacman -S xmonad xmonad-contrib dzen2 dmenu gmrun zsh terminator xcompmgr alsa-utils ttf-dejavu xclip minicom feh openssh rsync
-
-sudo yaourt -S pipelight
 
 echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > ~/.zprofile
 
-vi ~/.xinitrc
-#dropboxd &&
-# xsetroot -cursor_name left_ptr &&
-# exec xmonad
+cat << EOF >> ~/.xinitrc
+dropboxd &&
+xsetroot -cursor_name left_ptr &&
+exec xmonad
+EOF
+# }}}
 
-startx
+#-- Apps --# {{{
+sudo yaourt -S pipelight
+# }}}
+
+echo "Ok. Reboot and log in as '$myuser'"
