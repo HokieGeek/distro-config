@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo yaourt -S pipelight
+sudo yaourt pipelight
 
 minicom openssh rsync
 
@@ -9,6 +9,8 @@ gvim
 gimp
 vlc
 git
+deluge
+virtualbox
 
 #eclipse
 #arduino ide
