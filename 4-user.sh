@@ -5,7 +5,7 @@ myuser=$1
 pacman -S sudo bash-completion vim zsh
 echo "Set root password: "
 passwd
-useradd -m -g users -G wheel,storage,power,scanner -s /bin/zsh andres
+useradd -m -g users -G wheel,storage,power,scanner,uucp -s /bin/zsh andres
 echo "Set password for '$myuser': "
 passwd andres
 pacman -Ss sudo
