@@ -1,16 +1,13 @@
 #!/bin/sh
 
+sudo yaourt chromium
+
 sudo yaourt pipelight
 
-minicom openssh rsync
+sudo yaourt minicom openssh rsync
 
-chromium
-gvim
-gimp
-vlc
-git
-deluge
-virtualbox
+sudo yaourt git hg eclipse eclipse-vrapper
+#arduino
 
-#eclipse
-#arduino ide
+sudo yaourt gvim gimp vlc deluge virtualbox
+
