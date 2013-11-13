@@ -1,9 +1,15 @@
 #!/bin/sh
 
-echo "Uncomment multilib"
-vi /etc/pacman.conf
+echo "Updating pacman packages"
+cp /{etc,tmp}/pacman.conf
+sed '/#\(\[multilib\]\)/{
+s/#\(.*\)/\1/;
+N
+s/#\(.*\)/\1/;
+}' /tmp/pacman.conf > /etc/pacman.conf
+#sed 's/#\(\[multilib\]\)/\1/g' /tmp/pacman.conf > /etc/pacman.conf
+#vi /etc/pacman.conf
 pacman -Sy
-rankmirrors -v /etc/pacman.d/mirrorlist
 pacman -S wget
 
 # install yaourt
@@ -14,12 +20,13 @@ function installAUR() {
     tar -xvzf `basename $1`
     cd $pkg
     makepkg -s
-    sudo pacman -U ${pkg}*.tar.xz
+    pacman -U ${pkg}*.tar.xz
     cd ..
     rm -rf ${pkg}*
 }
 
 {
+    echo "Installing yaourt"
     mkdir /tmp/yaourt
     cd /tmp/yaourt
     installAUR pa/package-query/package-query.tar.gz
