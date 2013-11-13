@@ -2,15 +2,14 @@
 
 myuser=andres
 
-./1-fs.sh
+./1-fs.sh sda1 sda2 sda3
 
 arch-chroot /mnt
 
-./2-locale.sh &&
+. ./2-locale.sh &&
 ./3-packaging.sh &&
 ./4-user.sh $myuser &&
-./5-boot.sh &&
-
+./5-boot.sh && \
 exit
 
 umount /mnt/home
