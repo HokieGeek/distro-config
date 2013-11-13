@@ -1,24 +1,25 @@
 #!/bin/sh
 
+mydir=(cd `dirname $0`; pwd)
+
 myuser=andres
 
-./1-fs.sh sda1 sda2 sda3
+${mydir}/1-fs.sh sda1 sda2 sda3
 
 arch-chroot /mnt
 
-. ./2-locale.sh &&
-./3-packaging.sh &&
-./4-user.sh $myuser &&
-./5-boot.sh && \
-exit
+(. ${mydir}/2-locale.sh &&
+${mydir}/3-packaging.sh &&
+${mydir}/4-user.sh $myuser &&
+${mydir}/5-boot.sh --efi && exit)
 
 umount /mnt/home
 umount /mnt
 reboot
 
-./6-network.sh &&
-./7-xtools.sh &&
-./8-environment.sh &&
-./9-apps.sh
+${mydir}/6-network.sh --wifi &&
+${mydir}/7-xtools.sh &&
+${mydir}/8-environment.sh &&
+${mydir}/9-apps.sh
 
 echo "Ok. Reboot and log in as '$myuser'"

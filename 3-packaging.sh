@@ -25,10 +25,8 @@ function installAUR() {
     rm -rf ${pkg}*
 }
 
-{
-    echo "Installing yaourt"
-    mkdir /tmp/yaourt
-    cd /tmp/yaourt
-    installAUR pa/package-query/package-query.tar.gz
-    installAUR ya/yaourt/yaourt.tar.gz
-}
+echo "Installing yaourt"
+mkdir /tmp/yaourt
+cd /tmp/yaourt
+installAUR pa/package-query/package-query.tar.gz
+installAUR ya/yaourt/yaourt.tar.gz
