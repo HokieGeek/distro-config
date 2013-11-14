@@ -1,33 +1,42 @@
 #!/bin/sh
-echo "=====> Setting up the filesystem."
+
+device=$1
+boot=$2
+root=$3
+swap=$4
+home=$5
 
 here=$(cd `dirname $0`; pwd)
 rootDir=/mnt
-homeDir="${rootDir}/home"
+homeDir=${rootDir}/home
+fstabPath=${rootDir}/etc/fstab
+swapSize=1024M
 
-device=$1
-root=$2
-swap=$3
-home=$4
+echo "=====> Partition the drive(s)"
+cgdisk ${device}
 
-cfdisk /dev/${device}
 
-echo "=====> Setting filesystems"
-mkfs.ext4 /dev/${root}
-mkfs.ext4 /dev/${home}
-mkswap /dev/${swap}
-swapon /dev/${swap}
+echo "=====> Creating filesystems"
+# mkfs.fat -F32 ${boot}
+mkfs.ext4 ${root}
+mkfs.ext4 ${home}
 
-lsblk /dev/${device}
+echo "=====> Creating swap"
+[ ! -e ${swap} ] && fallocate -l ${swapSize} ${swap}
+mkswap ${swap}
+swapon ${swap}
+# TODO?: echo "${swap} none swap defaults 0 0" >> ${fstabPath}
+
+lsblk ${device}
 
 echo "=====> Mounting partitions"
 mkdir ${rootDir}
-mount /dev/${root} ${rootDir}
+mount ${root} ${rootDir}
 
 mkdir ${homeDir}
-mount /dev/${home} ${homeDir}
+mount ${home} ${homeDir}
 mkdir ${homeDir}
-mount /dev/${home} ${homeDir}
+mount ${home} ${homeDir}
 
 [ ! -d ${homeDir} ] && {
     echo "ERROR: ${homeDir} is not mounted. Aborting."
@@ -35,11 +44,11 @@ mount /dev/${home} ${homeDir}
 }
 
 echo "=====> Installing base system"
-# TODO: make this an optional thing
+# TODO: make this an optional thing ?
 #rankmirrors -v /etc/pacman.d/mirrorlist
-pacstrap -i ${rootDir} base base-devel
-genfstab -U -p ${rootDir} >> ${rootDir}/etc/fstab && cat ${rootDir}/etc/fstab
+pacstrap ${rootDir} base base-devel
+genfstab -U -p ${rootDir} >> ${fstabPath} && cat ${fstabPath}
 
 echo "=====> Installing distro-config scripts to system"
-cp -r ${here} /mnt
-chmod 777 -R /mnt/`basename ${here}`
+cp -r ${here} ${rootDir}
+chmod 777 -R ${rootDir}/`basename ${here}`

@@ -4,13 +4,13 @@ mydir=(cd `dirname $0`; pwd)
 
 myuser=andres
 
-${mydir}/1-fs.sh sda sda1 sda2 sda3
+${mydir}/1-fs.sh /dev/sda /dev/sda1 /dev/sda2 /swapfile /dev/sda3
 
 arch-chroot /mnt \
 (. ${mydir}/2-locale.sh &&
 ${mydir}/3-packaging.sh &&
 ${mydir}/4-user.sh $myuser &&
-${mydir}/5-boot.sh --efi && exit)
+${mydir}/5-boot.sh --efi /dev/sda2 && exit)
 
 umount /mnt/home
 umount /mnt
