@@ -19,17 +19,12 @@ sudo umount /mnt/arch
 sudo rm -rf /mnt/arch
 
 # Copy distro-config to the extract directory
-rsync -vr --exclude=".git" ${here} /tmp/${name}
+rsync -vr --exclude=".git" --exclude="*~" ${here} /tmp/${name}
 
 # Now create the new iso!
 mkisofs -r -V ${label} -cache-inodes -J -l \
     -b isolinux/isolinux.bin -c isolinux/boot.cat \
     -no-emul-boot -boot-load-size 4 -boot-info-table \
     -o ${name}-config.iso /tmp/${name}
-
-#mkisofs -r -V ARCH_201310 -cache-inodes -J -l \
-#    -b isolinux/isolinux.bin -c isolinux/boot.cat \
-#    -no-emul-boot -boot-load-size 4 -boot-info-table \
-#    -o archlinux-2013.10.01-dual-config.iso archlinux-2013.10.01
 
 rm -rf /tmp/${name}
