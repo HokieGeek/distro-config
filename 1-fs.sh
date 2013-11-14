@@ -1,32 +1,45 @@
 #!/bin/sh
-echo "Setting up the filesystem."
-echo "Remember to add tons to /mnt!!"
+echo "=====> Setting up the filesystem."
 
+here=$(cd `dirname $0`; pwd)
 rootDir=/mnt
+homeDir="${rootDir}/home"
 
 device=$1
 root=$2
 swap=$3
 home=$4
 
-cfdisk ${device}
+cfdisk /dev/${device}
 
-echo "Setting filesystems"
+echo "=====> Setting filesystems"
 mkfs.ext4 /dev/${root}
 mkfs.ext4 /dev/${home}
 mkswap /dev/${swap}
 swapon /dev/${swap}
 
-lsblk ${device}
+lsblk /dev/${device}
 
-echo "Mounting partitions"
+echo "=====> Mounting partitions"
 mkdir ${rootDir}
-mkdir ${rootDir}/home
-mount /dev/$1 ${rootDir}
-mount /dev/$3 ${rootDir}/home
+mount /dev/${root} ${rootDir}
 
-echo "Installing base system"
-# vi /etc/pacman.d/mirrolist
-rankmirrors -v /etc/pacman.d/mirrorlist
+mkdir ${homeDir}
+mount /dev/${home} ${homeDir}
+mkdir ${homeDir}
+mount /dev/${home} ${homeDir}
+
+[ ! -d ${homeDir} ] && {
+    echo "ERROR: ${homeDir} is not mounted. Aborting."
+    exit 5
+}
+
+echo "=====> Installing base system"
+# TODO: make this an optional thing
+#rankmirrors -v /etc/pacman.d/mirrorlist
 pacstrap -i ${rootDir} base base-devel
 genfstab -U -p ${rootDir} >> ${rootDir}/etc/fstab && cat ${rootDir}/etc/fstab
+
+echo "=====> Installing distro-config scripts to system"
+cp -r ${here} /mnt
+chmod 777 -R /mnt/`basename ${here}`

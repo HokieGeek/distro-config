@@ -3,7 +3,7 @@
 lang="en_US.UTF-8"
 loc="US/Eastern"
 
-echo "Uncomment: ${lang}"
+echo "=====> Uncomment: ${lang}"
 # TODO: just use sed
 #vi /etc/locale.gen
 cp /{etc,tmp}/locale.gen
