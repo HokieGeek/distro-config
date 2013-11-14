@@ -4,7 +4,7 @@
 function installAUR() {
     wget https://aur.archlinux.org/packages/$1
     pkg=`echo $1 | awk -F'/' '{ print $2 }'`
-    echo $pkg
+    # echo $pkg
     tar -xvzf `basename $1`
     cd $pkg
     makepkg -s
@@ -13,21 +13,29 @@ function installAUR() {
     rm -rf ${pkg}*
 }
 
-echo "Installing yaourt"
+echo "=====> Installing yaourt"
 mkdir /tmp/yaourt
 cd /tmp/yaourt
 installAUR pa/package-query/package-query.tar.gz
 installAUR ya/yaourt/yaourt.tar.gz
 
+echo "=====> Installing chromium and plugins"
 sudo yaourt chromium
-
 sudo yaourt pipelight
 
-sudo yaourt minicom openssh rsync
+echo "=====> Installing some system tools"
+sudo yaourt openssh rsync
 
-sudo yaourt hg eclipse eclipse-vrapper
+echo "=====> Installing programming tools"
+sudo yaourt hg darcs eclipse eclipse-vrapper minicom scons
 #arduino
 
-# TODO: dropbox!
-sudo yaourt gvim gimp vlc deluge virtualbox
+echo "=====> Installing dropbox"
+sudo dropbox dropbox-cli
+
+echo "=====> Installing media tools"
+sudo yaourt gimp vlc deluge
+
+echo "=====> Installing various useful tools"
+sudo yaourt gvim virtualbox nc notify-send
 
