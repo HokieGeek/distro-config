@@ -6,9 +6,10 @@ sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu
 echo "=====> Installing display/login manager"
 sudo pacman -S slim slim-themes archlinux-themes-slim
 systemctl enable slim.service
+# TODO: choose a theme?
 
 echo "=====> Installing incidental applications"
-sudo pacman -S terminator dash mlocate acpid
+sudo pacman -S terminator dash mlocate acpid wget gpg
 sudo updatedb
 
 echo "=====> Downloading and setting up dotfiles"
@@ -16,6 +17,14 @@ sudo pacman -S git
 cd $HOME
 git clone https://github.com/HokieGeek/dotfiles.git
 dotfiles/setup.sh
+
+echo "=====> Downloading and setting up my ssh keys"
+# TODO
+mkdir ${HOME}/.ssh
+#(cd $HOME/.ssh && \
+    #wget -P ${HOME}/.ssh <URL of ssh keys tarball> && \
+    #gpg -D *.? | tar -xvz)
+
 
 echo "=====> Enabling suspension on lid closing"
 sudo pacman -S acpid

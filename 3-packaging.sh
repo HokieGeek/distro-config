@@ -10,4 +10,3 @@ s/#\(.*\)/\1/;
 #sed 's/#\(\[multilib\]\)/\1/g' /tmp/pacman.conf > /etc/pacman.conf
 #vi /etc/pacman.conf
 pacman -Sy
-pacman -S wget
