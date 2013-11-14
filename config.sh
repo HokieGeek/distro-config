@@ -14,6 +14,8 @@ ${mydir}/5-boot.sh --efi && exit)
 
 umount /mnt/home
 umount /mnt
+
+echo "Ok. Reboot and log in as '$myuser'"
 reboot
 
 ${mydir}/6-network.sh --wifi &&
@@ -21,4 +23,4 @@ ${mydir}/7-xtools.sh &&
 ${mydir}/8-environment.sh &&
 ${mydir}/9-apps.sh
 
-echo "Ok. Reboot and log in as '$myuser'"
+echo "Done!"
