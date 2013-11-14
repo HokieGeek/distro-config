@@ -13,9 +13,9 @@ mkdir /tmp/${name}
 
 # Mount the iso to temp
 sudo mkdir /mnt/arch
-mount -o loop ${iso} /mnt/arch
+sudo mount -o loop ${iso} /mnt/arch
 rsync -vr /mnt/arch/* /tmp/${name}
-umount /mnt/arch
+sudo umount /mnt/arch
 sudo rm -rf /mnt/arch
 
 # Copy distro-config to the extract directory
