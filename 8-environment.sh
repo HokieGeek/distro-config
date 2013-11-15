@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "=====> Installing window manager"
-sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu feh
+sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu feh xbacklight
 
 echo "=====> Installing login manager"
 sudo pacman -S slim slim-themes archlinux-themes-slim
