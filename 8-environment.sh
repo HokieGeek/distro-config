@@ -3,10 +3,15 @@
 echo "=====> Installing window manager"
 sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu feh
 
-echo "=====> Installing display/login manager"
+echo "=====> Installing login manager"
 sudo pacman -S slim slim-themes archlinux-themes-slim
 sudo systemctl enable slim.service
 # TODO: choose a theme?
+#slim -p /usr/share/slim/themes/<theme name>
+#current_theme (comma delimited means random theme!)
+#cp /{etc,tmp}/slim.conf
+#sed 's/#\(cursor\s*left_ptr\)/\1/g' /tmp/slim.conf > /etc/slim.conf
+# TODO: if this works, you need to edit xinitrc
 
 echo "=====> Installing incidental applications"
 sudo pacman -S terminator dash mlocate acpid wget gnupg
@@ -32,10 +37,10 @@ sudo pacman -S acpid
 sed -e "s;logger 'LID closed';echo -n mem > /sys/power/state;" /etc/acpi/handler.sh > /tmp/handler.sh
 sudo mv /tmp/handler.sh /etc/acpi
 
-echo "=====> Creating profile"
-echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > ~/.zprofile
+echo "=====> Creating zsh profile"
+echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > $HOME/.zprofile
 
-echo "=====> Creating xinit"
+echo "=====> Creating xinitrc"
 cat << EOF >> ~/.xinitrc
 dropboxd &&
 xsetroot -cursor_name left_ptr &&
