@@ -1,10 +1,9 @@
 #!/bin/sh
 
 device=$1
-boot=$2
-root=$3
-swap=$4
-home=$5
+root=$2
+swap=$3
+home=$4
 
 here=$(cd `dirname $0`; pwd)
 rootDir=/mnt
@@ -15,17 +14,17 @@ swapSize=1024M
 echo "=====> Partition the drive(s)"
 cgdisk ${device}
 
+echo "=====> Creating swap"
+[ ! -e ${swap} ] && fallocate -l ${swapSize} ${swap}
+chmod 0600 ${swap}
+mkswap ${swap}
+swapon ${swap}
+# TODO?: echo "${swap} none swap defaults 0 0" >> ${fstabPath}
 
 echo "=====> Creating filesystems"
 # mkfs.fat -F32 ${boot}
 mkfs.ext4 ${root}
 mkfs.ext4 ${home}
-
-echo "=====> Creating swap"
-[ ! -e ${swap} ] && fallocate -l ${swapSize} ${swap}
-mkswap ${swap}
-swapon ${swap}
-# TODO?: echo "${swap} none swap defaults 0 0" >> ${fstabPath}
 
 lsblk ${device}
 

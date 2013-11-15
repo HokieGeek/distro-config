@@ -4,7 +4,8 @@ mydir=(cd `dirname $0`; pwd)
 
 myuser=andres
 
-${mydir}/1-fs.sh /dev/sda /dev/sda1 /dev/sda2 /swapfile /dev/sda3
+#${mydir}/1-fs.sh /dev/sda /dev/sda1 /dev/sda2 /swapfile /dev/sda3
+${mydir}/1-fs.sh /dev/sda /dev/sda1 /swapfile /dev/sda2
 
 arch-chroot /mnt \
 (. ${mydir}/2-locale.sh &&

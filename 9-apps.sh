@@ -38,4 +38,3 @@ sudo yaourt gimp vlc deluge
 
 echo "=====> Installing various useful tools"
 sudo yaourt gvim virtualbox nc notify-send
-
