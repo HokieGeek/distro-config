@@ -30,7 +30,7 @@ root=$2
     echo "=====> Installing BIOS bootloader"
     pacman -S grub-bios os-prober
     grub-install --target=i386-pc --recheck /dev/sda
-}
 
-cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
-grub-mkconfig -o /boot/grub/grub.cfg
+    cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+    grub-mkconfig -o /boot/grub/grub.cfg
+}
