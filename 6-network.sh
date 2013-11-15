@@ -15,3 +15,5 @@ interfaceType=$1
     wifi-menu
     systemctl enable net-auto-wireless.service
 }
+
+ping -c 3 www.google.com
