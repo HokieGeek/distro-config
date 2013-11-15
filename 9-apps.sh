@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Because. shiiiit.
+mount -o remount,size=10G,noatime /tmp
+
 # install yaourt
 function installAUR {
     wget https://aur.archlinux.org/packages/$1
@@ -40,4 +43,4 @@ sudo pacman -S gimp vlc deluge
 # TODO: codecs?
 
 echo "=====> Installing various useful tools"
-sudo pacman -S virtualbox gnu-netcat
+sudo pacman -S virtualbox gnu-netcat squashfs-tools
