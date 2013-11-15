@@ -1,40 +1,43 @@
-#!/bin/sh
+#!/bin/bash
 
 # install yaourt
-function installAUR() {
+function installAUR {
     wget https://aur.archlinux.org/packages/$1
     pkg=`echo $1 | awk -F'/' '{ print $2 }'`
     # echo $pkg
     tar -xvzf `basename $1`
     cd $pkg
     makepkg -s
-    pacman -U ${pkg}*.tar.xz
+    sudo pacman -U ${pkg}*.tar.xz
     cd ..
     rm -rf ${pkg}*
 }
 
-echo "=====> Installing yaourt"
-mkdir /tmp/yaourt
-cd /tmp/yaourt
+echo "=====> Installing AUR helper"
+cd /tmp
 installAUR pa/package-query/package-query.tar.gz
 installAUR ya/yaourt/yaourt.tar.gz
 
 echo "=====> Installing chromium and plugins"
-sudo yaourt chromium
-sudo yaourt pipelight
+sudo yaourt -S chromium
+# Want to make sure that pipelight is installed *after* chromium
+sudo yaourt -S pipelight
 
 echo "=====> Installing some system tools"
-sudo yaourt openssh rsync
+sudo pacman -S openssh rsync
 
 echo "=====> Installing programming tools"
-sudo yaourt hg darcs eclipse eclipse-vrapper minicom scons
+sudo yaourt -S eclipse eclipse-vrapper
+# TODO: darcs
 #arduino
+sudo pacman -S mercurial scons minicom
 
 echo "=====> Installing dropbox"
-sudo dropbox dropbox-cli
+sudo yaourt -S dropbox dropbox-cli
 
 echo "=====> Installing media tools"
-sudo yaourt gimp vlc deluge
+sudo pacman -S gimp vlc deluge
+# TODO: codecs?
 
 echo "=====> Installing various useful tools"
-sudo yaourt gvim virtualbox nc notify-send
+sudo pacman -S virtualbox gnu-netcat
