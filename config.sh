@@ -10,8 +10,9 @@ ${mydir}/1-fs.sh /dev/sda /dev/sda1 /swapfile /dev/sda2
 arch-chroot /mnt \
 (. ${mydir}/2-locale.sh &&
 ${mydir}/3-packaging.sh &&
-${mydir}/4-user.sh $myuser &&
-${mydir}/5-boot.sh --efi /dev/sda2 && exit)
+${mydir}/4-user.sh $myuser && exit)
+## This box already has a bootloader in /boot (/dev/sda2)
+# ${mydir}/5-boot.sh --efi /dev/sda2 && exit)
 
 umount /mnt/home
 umount /mnt
