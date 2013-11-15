@@ -20,11 +20,11 @@ dotfiles/setup.sh
 
 echo "=====> Downloading and setting up my ssh keys"
 # TODO
+#tarball=wget -P ${HOME}/.ssh https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg && \
 mkdir ${HOME}/.ssh
-#(cd $HOME/.ssh && \
-    #wget -P ${HOME}/.ssh <URL of ssh keys tarball> && \
-    #gpg -D *.? | tar -xvz)
-
+$(cd $HOME/.ssh && \
+    wget -P ${HOME}/.ssh https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg && \
+    gpg -d ssh-keys.tgz.gpg|tar -xvz
 
 echo "=====> Enabling suspension on lid closing"
 sudo pacman -S acpid
