@@ -39,7 +39,7 @@ echo "=====> Installing dropbox"
 yaourt -S dropbox dropbox-cli
 
 echo "=====> Installing media tools"
-sudo pacman -S gimp vlc deluge
+sudo pacman -S gimp vlc deluge playonlinux
 # TODO: codecs?
 
 echo "=====> Installing various useful tools"
