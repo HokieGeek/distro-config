@@ -5,12 +5,13 @@ sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu
 
 echo "=====> Installing display/login manager"
 sudo pacman -S slim slim-themes archlinux-themes-slim
-systemctl enable slim.service
+sudo systemctl enable slim.service
 # TODO: choose a theme?
 
 echo "=====> Installing incidental applications"
-sudo pacman -S terminator dash mlocate acpid wget gpg
+sudo pacman -S terminator dash mlocate acpid wget gnupg
 sudo updatedb
+sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 
 echo "=====> Downloading and setting up dotfiles"
 sudo pacman -S git
@@ -24,12 +25,12 @@ echo "=====> Downloading and setting up my ssh keys"
 mkdir ${HOME}/.ssh
 $(cd $HOME/.ssh && \
     wget -P ${HOME}/.ssh https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg && \
-    gpg -d ssh-keys.tgz.gpg|tar -xvz
+    gpg -d ssh-keys.tgz.gpg|tar -xvz)
 
 echo "=====> Enabling suspension on lid closing"
 sudo pacman -S acpid
-cp /{etc/acpi,tmp}/handler.sh
-sed -e "s;logger 'LID closed';echo -n mem > /sys/power/state;" /tmp/handler.sh > /etc/acpi/handler.sh
+sed -e "s;logger 'LID closed';echo -n mem > /sys/power/state;" /etc/acpi/handler.sh > /tmp/handler.sh
+sudo mv /tmp/handler.sh /etc/acpi
 # sed -e 's;/usr/share/acpi-support/screenblank;echo -n mem > /sys/power/state;' /tmp/lid.sh > /etc/acpi/lid.sh
 # Replace: . /usr/share/acpi-support/screenblank
 #    with: echo -n mem > /sys/power/state
@@ -41,6 +42,7 @@ echo "=====> Creating xinit"
 cat << EOF >> ~/.xinitrc
 dropboxd &&
 xsetroot -cursor_name left_ptr &&
+$HOME/.bin/rotate-wallpaper $HOME/.look/bgs &&
 exec xmonad
 EOF
 
