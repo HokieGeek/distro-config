@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Because. shiiiit.
-mount -o remount,size=10G,noatime /tmp
+sudo mount -o remount,size=10G,noatime /tmp
 
 # install yaourt
 function installAUR {
