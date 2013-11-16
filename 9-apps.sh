@@ -38,15 +38,17 @@ sudo pacman -S openssh rsync gnu-netcat squashfs-tools
 echo "=====> Installing programming tools"
 yaourt -S eclipse eclipse-vrapper
 # TODO: arduino (the beta isn't working)
-# TODO: darcs
+# yaourt -S xmonad-darcs
 sudo pacman -S mercurial scons minicom
 
 echo "=====> Installing dropbox"
 yaourt -S dropbox dropbox-cli
+sudo systemctl enable dropbox@HokieGeek
+dropbox autostart no
 
 echo "=====> Installing media tools"
 sudo pacman -S gimp vlc deluge playonlinux
 
 echo "=====> Installing various useful tools"
-sudo pacman -S virtualbox googlecl pkgfile
+sudo pacman -S virtualbox googlecl pkgfile x11vnc
 sudo pkgfile --update
