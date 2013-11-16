@@ -1,5 +1,6 @@
 #!/bin/sh
 
+mydir=$(cd `dirname $0`; pwd)
 [ $# -gt 0 ] && myuser=$1 || myuser=`whoami`
 [ $# -gt 1 ] && vm="$2" || vm=""
 # bootloader=0

@@ -1,5 +1,6 @@
 #!/bin/sh
 
+mydir=$(cd `dirname $0`; pwd)
 myUser=$1
 [ $# -gt 2 && "$2" = "--vm" ] && isVm=1 || isVm=0
 

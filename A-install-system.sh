@@ -1,7 +1,7 @@
 #!/bin/sh
 
-root=/mnt
-mydir=(cd `dirname $0`; pwd)
+rootDir=/mnt
+mydir=$(cd `dirname $0`; pwd)
 myuser=$1
 [ $# -gt 1 ] && vm="$2" || vm=""
 

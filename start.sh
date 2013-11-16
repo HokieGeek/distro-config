@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mydir=(cd `dirname $0`; pwd)
+mydir=$(cd `dirname $0`; pwd)
 
 user=andres
 
