@@ -1,17 +1,23 @@
 #!/bin/sh
 
 echo "=====> Installing window manager"
-sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu feh xbacklight
+sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu terminus-font feh xbacklight
 
 echo "=====> Installing login manager"
 sudo pacman -S slim slim-themes archlinux-themes-slim
 sudo systemctl enable slim.service
-# TODO: choose a theme?
-#slim -p /usr/share/slim/themes/<theme name>
-#current_theme (comma delimited means random theme!)
-#cp /{etc,tmp}/slim.conf
-#sed 's/#\(cursor\s*left_ptr\)/\1/g' /tmp/slim.conf > /etc/slim.conf
-# TODO: if this works, you need to edit xinitrc
+cp /{etc,tmp}/slim.conf
+sed \
+    -e '/suspend_cmd/{s/^#\s*//;s:/\(suspend\):/pm-\1:}' \
+    -e '/^login_cmd/{s;exec.*session;exec /bin/zsh -l ~/.xinitrc %session;}' \
+    -e '/welcome_msg/{s/^#\s*//;s/Welcome.*/Hola/}' \
+    -e '/shutdown_msg/{s/^#\s*//;s/The.*ing/Going to bed/}' \
+    -e '/reboot_msg/{s/^#\s*//;s/The.*ing/Be right back/}' \
+    -e '/current_theme/{s/^#\s*//;s/default/flat,rear-window,mindlock/}' \
+    /tmp/slim.conf > /etc/slim.conf
+echo "cursor            left_ptr" >> /etc/slim.conf
+    #-e '/default_user/{s/^#\s*//;s/simone/andres/}' \
+    #-e '/focus_password/{s/^#\s*//;s/no/yes/}' \
 
 echo "=====> Installing incidental applications"
 sudo pacman -S terminator dash mlocate acpid wget gnupg
@@ -41,10 +47,12 @@ echo "=====> Creating zsh profile"
 echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > $HOME/.zprofile
 
 echo "=====> Creating xinitrc"
-cat << EOF >> ~/.xinitrc
-dropboxd &&
-xsetroot -cursor_name left_ptr &&
-$HOME/.bin/rotate-wallpaper $HOME/.look/bgs &&
+cat << EOF > ~/.xinitrc
+#!/bin/sh
+
+xrandr --output `xrandr | awk '$2~/connected/{ print $1 }'` --auto
+xsetroot -cursor_name left_ptr
+~/.bin/rotate-wallpaper ~/.look/bgs
 exec xmonad
 EOF
 
