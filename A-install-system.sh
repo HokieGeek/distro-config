@@ -1,8 +1,9 @@
 #!/bin/sh
 
+root=/mnt
 mydir=(cd `dirname $0`; pwd)
 myuser=$1
-root=/mnt
+[ $# -gt 1 ] && vm="$2" || vm=""
 
 echo "======> Configuring filesystem"
 dev=/dev/sda
@@ -12,7 +13,7 @@ swapfile=/swapfile
 ${mydir}/1-fs.sh ${dev} ${part_root} ${swapfile} ${part_home}
 
 echo "======> Installing base system"
-arch-chroot ${rootDir} ${mydir}/B-root-setup.sh ${myuser}
+arch-chroot ${rootDir} ${mydir}/B-root-setup.sh ${myuser} ${vm}
 
 echo "======> Leaving installation environment"
 echo "Rebooting in 5 seconds"
