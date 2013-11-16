@@ -10,7 +10,14 @@ pacman -S sudo bash-completion vim zsh
 useradd -m -g users -G wheel,storage,power,scanner,uucp -s /bin/zsh andres
 passwd andres
 pacman -Ss sudo
-mkdir /home/andres/.vim
+mkdir /home/${myuser}/.vim
+
+#echo "=====> Setting home directory encryption"
+#pacman -S encfs
+#encfs /home/${myuser} /home/${myuser}/.Encrypted
+
+#/etc/security/pam_encfs.conf
+#encfs_default --idle=1
 
 echo "=====> Giving user sudo permissions"
 # TODO: can this be scripted? figure out this next line
