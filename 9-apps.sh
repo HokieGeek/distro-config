@@ -48,4 +48,5 @@ echo "=====> Installing media tools"
 sudo pacman -S gimp vlc deluge playonlinux
 
 echo "=====> Installing various useful tools"
-sudo pacman -S virtualbox googlecl
+sudo pacman -S virtualbox googlecl pkgfile
+sudo pkgfile --update
