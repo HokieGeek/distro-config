@@ -1,4 +1,10 @@
 #!/bin/sh
 
-echo "=====> Installing X Tools"
-sudo pacman -S xorg-server xorg-xinit xorg-utils xorg-server-utils mesa xf86-video-intel xf86-input-synaptics lib32-mesa-libgl xorg-twm xorg-xclock xterm alsa-utils x11vnc
+echo "=====> Installing Xorg Tools"
+sudo pacman -S xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-twm xorg-xclock xterm
+
+echo "=====> Installing video driver"
+sudo pacman -S mesa xf86-video-intel lib32-mesa-libgl
+
+echo "=====> Installing audio mixer and touchpad driver"
+sudo pacman -S alsa-utils xf86-input-synaptics
