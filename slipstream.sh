@@ -50,8 +50,14 @@ function unsquashAndInstall {
     mksquashfs ${unsquash_loc} ${image}
 }
 
+# Insert into filesystems
 unsquashAndInstall ${target}/${name}/arch/x86_64/root-image.fs.sfs ${target}/64
 unsquashAndInstall ${target}/${name}/arch/i686/root-image.fs.sfs ${target}/32
+
+# Insert into installation directory
+rsync -vr\
+            --exclude=".*" --exclude="*~" --exclude="`basename $0`"\
+            ${here} ${target}/${name}
 
 sudo rm -rf ${mount}
 
