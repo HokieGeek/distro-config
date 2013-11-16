@@ -12,7 +12,9 @@ fstabPath=${rootDir}/etc/fstab
 swapSize=1024M
 
 echo "=====> Partition the drive(s)"
-cgdisk ${device}
+cfdisk ${device}
+#TODO: take EFI option and select this
+# cgdisk ${device}
 
 echo "=====> Creating swap"
 [ ! -e ${swap} ] && fallocate -l ${swapSize} ${swap}
@@ -22,6 +24,7 @@ swapon ${swap}
 # TODO?: echo "${swap} none swap defaults 0 0" >> ${fstabPath}
 
 echo "=====> Creating filesystems"
+#TODO: take EFI option and select this
 # mkfs.fat -F32 ${boot}
 mkfs.ext4 ${root}
 mkfs.ext4 ${home}
