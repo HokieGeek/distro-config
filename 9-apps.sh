@@ -47,7 +47,7 @@ sudo systemctl enable dropbox@HokieGeek
 dropbox autostart no
 
 echo "=====> Installing media tools"
-sudo pacman -S gimp vlc deluge playonlinux
+sudo pacman -S gimp vlc deluge playonlinux skype
 
 echo "=====> Installing various useful tools"
 sudo pacman -S virtualbox googlecl pkgfile x11vnc
