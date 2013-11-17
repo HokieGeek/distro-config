@@ -9,7 +9,6 @@ echo "=====> Creating user '$myuser': "
 pacman -S sudo bash-completion vim zsh
 useradd -m -g users -G wheel,storage,power,scanner,uucp -s /bin/zsh andres
 passwd andres
-pacman -Ss sudo
 mkdir /home/${myuser}/.vim
 
 #echo "=====> Setting home directory encryption"
