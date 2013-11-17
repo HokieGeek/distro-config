@@ -1,11 +1,11 @@
 #!/bin/sh
 
 mydir=$(cd `dirname $0`; pwd)
-myUser=$1
-[ $# -gt 2 && "$2" = "--vm" ] && isVm=1 || isVm=0
+
+. ${mydir}/config.prop
 
 echo "======> Setting up the network"
-${mydir}/6-network.sh --wifi
+${mydir}/6-network.sh --${network}
 
 echo "======> Installing user applications"
 ${mydir}/7-xtools.sh

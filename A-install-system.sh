@@ -1,27 +1,22 @@
 #!/bin/sh
 
-rootDir=/mnt
 mydir=$(cd `dirname $0`; pwd)
-myuser=$1
-[ $# -gt 1 ] && vm="$2" || vm=""
+
+. ${mydir}/config.prop
 
 echo "======> Configuring filesystem"
-dev=/dev/sda
-part_root=/dev/sda1
-part_home=/dev/sda2
-swapfile=/swapfile
 ${mydir}/1-fs.sh ${dev} ${part_root} ${swapfile} ${part_home}
 
 echo "======> Installing base system"
-arch-chroot ${rootDir} ${mydir}/B-root-setup.sh ${myuser} ${vm}
+arch-chroot ${rootDir} ${mydir}/B-root-setup.sh
 
 echo "======> Leaving installation environment"
 echo "Rebooting in 5 seconds"
-echo "Remove install media and remember log in as '$myuser'"
-sleep 4s
+echo "Remove install media and remember log in as '${myuser}'"
+sleep 5s
 umount ${homeDir}
+sleep 1s
 umount ${rootDir}
 echo "I've always been in love with you"
 sleep 0.5s
 reboot
-

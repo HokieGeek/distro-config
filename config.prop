@@ -1,0 +1,13 @@
+myuser=andres
+vm=1
+rootDir=/mnt
+homeDir=${rootDir}/home
+dev=/dev/sda
+part_root=/dev/sda1
+part_home=/dev/sda2
+swapfile=${rootDir}/swapfile
+
+bootloader=1
+bootloaderType="bios"
+#part_boot=/dev/sda2
+network="eth"
