@@ -20,7 +20,7 @@ echo "cursor            left_ptr" >> /etc/slim.conf
     #-e '/focus_password/{s/^#\s*//;s/no/yes/}' \
 
 echo "=====> Installing incidental applications"
-sudo pacman -S terminator dash mlocate acpid wget gnupg
+sudo pacman -S terminator dash mlocate acpid wget gnupg screen
 sudo updatedb
 sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 
