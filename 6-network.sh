@@ -17,3 +17,6 @@ interfaceType=$1
 }
 
 ping -c 3 www.google.com
+
+echo "=====> Setting up bluetooth"
+sudo pacman -S bluez bluez-utils blueman
