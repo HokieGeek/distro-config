@@ -49,6 +49,9 @@ dropbox autostart no
 echo "=====> Installing media tools"
 sudo pacman -S gimp vlc deluge playonlinux skype
 
+echo "=====> Installing printer stuff"
+sudo pacman -S hplip cups cups-filters ghostscript gsfonts
+
 echo "=====> Installing various useful tools"
 sudo pacman -S virtualbox googlecl pkgfile x11vnc
 sudo pkgfile --update
