@@ -7,7 +7,7 @@ echo "=====> Installing login manager"
 sudo pacman -S slim slim-themes archlinux-themes-slim
 sudo systemctl enable slim.service
 cp /{etc,tmp}/slim.conf
-sed \
+sudo sed \
     -e '/suspend_cmd/{s/^#\s*//;s:/\(suspend\):/pm-\1:}' \
     -e '/^login_cmd/{s;exec.*session;exec /bin/zsh -l ~/.xinitrc %session;}' \
     -e '/welcome_msg/{s/^#\s*//;s/Welcome.*/Hola/}' \
@@ -15,7 +15,7 @@ sed \
     -e '/reboot_msg/{s/^#\s*//;s/The.*ing/Be right back/}' \
     -e '/current_theme/{s/^#\s*//;s/default/flat,rear-window,mindlock/}' \
     /tmp/slim.conf > /etc/slim.conf
-echo "cursor            left_ptr" >> /etc/slim.conf
+sudo echo "cursor            left_ptr" >> /etc/slim.conf
     #-e '/default_user/{s/^#\s*//;s/simone/andres/}' \
     #-e '/focus_password/{s/^#\s*//;s/no/yes/}' \
 
@@ -31,7 +31,7 @@ git clone https://github.com/HokieGeek/dotfiles.git
 dotfiles/setup.sh
 
 echo "=====> Downloading and setting up my ssh keys"
-ssh_keys_tarball=wget -P ${HOME}/.ssh https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg
+ssh_keys_tarball="https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg"
 ssh_keys_name=`basename ${ssh_keys_tarball}`
 mkdir ${HOME}/.ssh
 $(cd $HOME/.ssh && \
