@@ -16,13 +16,6 @@ cfdisk ${device}
 #TODO: take EFI option and select this
 # cgdisk ${device}
 
-echo "=====> Creating swap"
-[ ! -e ${swap} ] && fallocate -l ${swapSize} ${swap}
-chmod 0600 ${swap}
-mkswap ${swap}
-swapon ${swap}
-# TODO?: echo "${swap} none swap defaults 0 0" >> ${fstabPath}
-
 echo "=====> Creating filesystems"
 #TODO: take EFI option and select this
 # mkfs.fat -F32 ${boot}
@@ -34,9 +27,7 @@ lsblk ${device}
 echo "=====> Mounting partitions"
 mkdir ${rootDir}
 mount ${root} ${rootDir}
-
-mkdir ${homeDir}
-mount ${home} ${homeDir}
+sleep 3s
 mkdir ${homeDir}
 mount ${home} ${homeDir}
 
@@ -46,11 +37,19 @@ mount ${home} ${homeDir}
 }
 
 echo "=====> Installing base system"
-# TODO: make this an optional thing ?
 #rankmirrors -v /etc/pacman.d/mirrorlist
 pacstrap ${rootDir} base base-devel
-genfstab -U -p ${rootDir} >> ${fstabPath} && cat ${fstabPath}
+genfstab -U -p ${rootDir} >> ${fstabPath}
 
-echo "=====> Installing distro-config scripts to system"
+echo "=====> Creating swap"
+[ ! -e ${swap} ] && fallocate -l ${swapSize} ${swap}
+chmod 0600 ${swap}
+mkswap ${swap}
+swapon ${swap}
+echo "${swap} none swap defaults 0 0" >> ${fstabPath}
+
+cat ${fstabPath}
+
+echo "=====> Installing distro-config scripts to the new system"
 cp -r ${here} ${rootDir}
 chmod 777 -R ${rootDir}/`basename ${here}`
