@@ -5,19 +5,19 @@ sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu
 
 echo "=====> Installing login manager"
 sudo pacman -S slim slim-themes archlinux-themes-slim
-sudo systemctl enable slim.service
-cp /{etc,tmp}/slim.conf
-sudo sed \
+sed \
     -e '/suspend_cmd/{s/^#\s*//;s:/\(suspend\):/pm-\1:}' \
     -e '/^login_cmd/{s;exec.*session;exec /bin/zsh -l ~/.xinitrc %session;}' \
     -e '/welcome_msg/{s/^#\s*//;s/Welcome.*/Hola/}' \
     -e '/shutdown_msg/{s/^#\s*//;s/The.*ing/Going to bed/}' \
     -e '/reboot_msg/{s/^#\s*//;s/The.*ing/Be right back/}' \
-    -e '/current_theme/{s/^#\s*//;s/default/flat,rear-window,mindlock/}' \
-    /tmp/slim.conf > /etc/slim.conf
-sudo echo "cursor            left_ptr" >> /etc/slim.conf
+    -e '/current_theme/{s/^#\s*//;s/default/rear-window,mindlock/}' \
+    /etc/slim.conf > /tmp/slim.conf
+echo "cursor            left_ptr" >> /tmp/slim.conf
     #-e '/default_user/{s/^#\s*//;s/simone/andres/}' \
     #-e '/focus_password/{s/^#\s*//;s/no/yes/}' \
+sudo cp /tmp/slim.conf /etc/slim.conf
+sudo systemctl enable slim.service
 
 echo "=====> Installing incidental applications"
 sudo pacman -S terminator dash mlocate acpid wget gnupg screen
@@ -39,7 +39,7 @@ $(cd $HOME/.ssh && \
     gpg -d ${ssh_keys_name} | tar -xvz && rm -rf ${ssh_keys_name})
 
 echo "=====> Enabling suspension on lid closing"
-sudo pacman -S acpid
+# sudo pacman -S acpid
 sed -e "s;logger 'LID closed';echo -n mem > /sys/power/state;" /etc/acpi/handler.sh > /tmp/handler.sh
 sudo mv /tmp/handler.sh /etc/acpi
 
@@ -50,7 +50,7 @@ echo "=====> Creating xinitrc"
 cat << EOF > ~/.xinitrc
 #!/bin/sh
 
-xrandr --output `xrandr | awk '$2~/connected/{ print $1 }'` --auto
+xrandr --output \`xrandr | awk '$2~/connected/{ print $1 }'\` --auto
 xsetroot -cursor_name left_ptr
 ~/.bin/rotate-wallpaper ~/.look/bgs
 exec xmonad
