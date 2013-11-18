@@ -33,7 +33,8 @@ yaourt -S chromium
 yaourt -S pipelight
 
 echo "=====> Installing some system tools"
-sudo pacman -S openssh rsync gnu-netcat squashfs-tools
+sudo pacman -S openssh rsync gnu-netcat squashfs-tools dash
+sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 
 echo "=====> Installing programming tools"
 yaourt -S eclipse eclipse-vrapper
@@ -53,5 +54,6 @@ echo "=====> Installing printer stuff"
 sudo pacman -S hplip cups cups-filters ghostscript gsfonts
 
 echo "=====> Installing various useful tools"
-sudo pacman -S virtualbox googlecl pkgfile x11vnc gksudo colordiff lynx
+sudo pacman -S virtualbox googlecl pkgfile x11vnc gksudo colordiff lynx mlocate
+sudo updatedb
 sudo pkgfile --update
