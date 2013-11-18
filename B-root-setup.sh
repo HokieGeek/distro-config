@@ -12,4 +12,5 @@ ${mydir}/4-user.sh ${myuser}
 [ ${bootloader} -gt 0 ] && ${mydir}/5-boot.sh --${bootloaderType}
 
 echo "exec ${mydir}/C-configure-user.sh" > /home/${myuser}/.zprofile
+chown ${myuser}:users /home/${myuser}/.zprofile
 
