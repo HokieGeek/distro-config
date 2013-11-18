@@ -12,7 +12,9 @@ interfaceType=$1
 [ "${interfaceType}" = "--wifi" ] && {
     echo "=====> Setting up wireless connection"
     pacman -S wireless_tools wpa_supplicant wpa_actiond dialog
-    wifi-menu
+    intf=`iw dev | cut -d: -f2 | egrep -v "(00|lo)" | cut -d' ' -f2`
+    ip link set ${intf} up
+    wifi-menu ${intf}
     systemctl enable net-auto-wireless.service
 }
 
