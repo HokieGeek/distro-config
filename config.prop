@@ -1,13 +1,13 @@
 myuser=andres
-vm=1
+vm=0
 rootDir=/mnt
 homeDir=${rootDir}/home
 dev=/dev/sda
-part_root=/dev/sda1
-part_home=/dev/sda2
+part_root=/dev/sda3
+part_home=/dev/sda4
 swapfile=${rootDir}/swapfile
 
-bootloader=1
-bootloaderType="bios"
+bootloader=0
+#bootloaderType="bios"
 #part_boot=/dev/sda2
-network="eth"
+network="wifi"
