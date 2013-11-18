@@ -53,5 +53,5 @@ echo "=====> Installing printer stuff"
 sudo pacman -S hplip cups cups-filters ghostscript gsfonts
 
 echo "=====> Installing various useful tools"
-sudo pacman -S virtualbox googlecl pkgfile x11vnc gksudo
+sudo pacman -S virtualbox googlecl pkgfile x11vnc gksudo colordiff lynx
 sudo pkgfile --update
