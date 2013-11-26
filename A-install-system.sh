@@ -7,6 +7,9 @@ mydir=$(cd `dirname $0`; pwd)
 echo "======> Configuring filesystem"
 ${mydir}/1-fs.sh ${dev} ${part_root} ${swapfile} ${part_home}
 
+echo "======> Setting up networking"
+${mydir}/0-network.sh "--${network}"
+
 echo "======> Installing base system"
 arch-chroot ${rootDir} ${mydir}/B-root-setup.sh
 
