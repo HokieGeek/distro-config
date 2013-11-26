@@ -13,7 +13,7 @@ interfaceType=$1
 
 [ "${interfaceType}" = "--wifi" ] && {
     [ "$2" = "--install" ] && {
-        pacman -S wireless_tools wpa_supplicant wpa_actiond dialog
+        pacman -S --needed wireless_tools wpa_supplicant wpa_actiond dialog
     } || {
         echo "=====> Setting up wireless connection"
         intf=`iw dev | cut -d: -f2 | egrep -v "(00|lo)" | cut -d' ' -f2`

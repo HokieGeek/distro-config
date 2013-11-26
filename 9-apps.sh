@@ -33,17 +33,17 @@ yaourt -S chromium
 yaourt -S pipelight
 
 echo "=====> Installing bluetooth"
-sudo pacman -S bluez bluez-utils blueman
+sudo pacman -S --needed bluez bluez-utils blueman
 
 echo "=====> Installing some system tools"
-sudo pacman -S openssh rsync gnu-netcat squashfs-tools dash
+sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash
 sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 
 echo "=====> Installing programming tools"
 yaourt -S eclipse eclipse-vrapper
 # TODO: arduino (the beta isn't working)
 # yaourt -S xmonad-darcs
-sudo pacman -S mercurial scons minicom
+sudo pacman -S --needed mercurial scons minicom
 
 echo "=====> Installing dropbox"
 yaourt -S dropbox dropbox-cli
@@ -51,12 +51,12 @@ sudo systemctl enable dropbox@HokieGeek
 dropbox autostart no
 
 echo "=====> Installing media tools"
-sudo pacman -S gimp vlc deluge playonlinux skype
+sudo pacman -S --needed gimp vlc deluge playonlinux skype
 
 echo "=====> Installing printer stuff"
-sudo pacman -S hplip cups cups-filters ghostscript gsfonts
+sudo pacman -S --needed hplip cups cups-filters ghostscript gsfonts
 
 echo "=====> Installing various useful tools"
-sudo pacman -S virtualbox googlecl pkgfile x11vnc colordiff lynx mlocate
+sudo pacman -S --needed virtualbox googlecl pkgfile x11vnc colordiff lynx mlocate
 sudo updatedb
 sudo pkgfile --update

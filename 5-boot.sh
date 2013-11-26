@@ -19,7 +19,7 @@ root=$2
 
     } > /boot/loader/entries/arch.conf
 
-    #pacman -S grub efibootmgr
+    #pacman -S --needed grub efibootmgr
     #grub-install --target=x86_64-efi --efi-directory=/boot \
                  #--bootloader-id=arch_grub --recheck
 }
@@ -28,7 +28,7 @@ root=$2
 ### i386
 [ "${boottype}" = "--bios" ] && {
     echo "=====> Installing BIOS bootloader"
-    pacman -S grub-bios os-prober
+    pacman -S --needed grub-bios os-prober
     grub-install --target=i386-pc --recheck /dev/sda
 
     cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo

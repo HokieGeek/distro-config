@@ -6,14 +6,14 @@ echo "=====> Set root password: "
 passwd
 
 echo "=====> Creating user '$myuser': "
-pacman -S sudo bash-completion vim zsh
+pacman -S --needed sudo bash-completion vim zsh
 useradd -m -g users -G wheel,storage,power,scanner,uucp -s /bin/zsh andres
 passwd ${myuser}
 mkdir /home/${myuser}/.vim
 chown ${myuser}:users /home/${myuser}/.vim
 
 #echo "=====> Setting home directory encryption"
-#pacman -S encfs
+#pacman -S --needed encfs
 #encfs /home/${myuser} /home/${myuser}/.Encrypted
 
 #/etc/security/pam_encfs.conf

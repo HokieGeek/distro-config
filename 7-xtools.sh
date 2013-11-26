@@ -1,22 +1,22 @@
 #!/bin/sh
 
 echo "=====> Installing Xorg Tools"
-sudo pacman -S xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-twm xorg-xclock
+sudo pacman -S --needed xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-twm xorg-xclock
 
 echo "=====> Installing terminals"
-sudo pacman -S xterm terminator screen
+sudo pacman -S --needed xterm terminator screen
 
 echo "=====> Installing video driver"
-sudo pacman -S mesa xf86-video-intel lib32-intel-dri lib32-mesa-libgl
+sudo pacman -S --needed mesa xf86-video-intel lib32-intel-dri lib32-mesa-libgl
 
 echo "=====> Installing audio mixer and touchpad driver"
-sudo pacman -S alsa-utils xf86-input-synaptics
+sudo pacman -S --needed alsa-utils xf86-input-synaptics
 
 echo "=====> Installing window manager"
-sudo pacman -S xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu terminus-font feh xbacklight
+sudo pacman -S --needed xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu terminus-font feh xbacklight
 
 echo "=====> Installing login manager"
-sudo pacman -S slim slim-themes archlinux-themes-slim
+sudo pacman -S --needed slim slim-themes archlinux-themes-slim
 sed \
     -e '/suspend_cmd/{s/^#\s*//;s:/\(suspend\):/pm-\1:}' \
     -e '/^login_cmd/{s;exec.*session;exec /bin/zsh -l ~/.xinitrc %session;}' \
