@@ -1,13 +1,16 @@
 myuser=andres
 rootDir=/mnt
-homeDir=${rootDir}/home
-dev=/dev/sda
-part_root=/dev/sda2
-part_home=/dev/sda3
+homeDir=/home
+bootDir=/boot
+userDir=${homeDir}/${myuser}
+
+device=/dev/sda
+part_boot=${device}1
+part_root=${device}2
+part_home=${device}3
 swapfile=/swapfile
 
 vm=0
-bootloader=0
-#bootloaderType="bios"
-#part_boot=/dev/sda2
+bootloader=1
+bootloaderType="bios"
 network="wifi"

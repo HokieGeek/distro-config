@@ -9,15 +9,14 @@ echo "=====> Creating user '$myuser': "
 pacman -S --needed sudo bash-completion vim zsh
 useradd -m -g users -G wheel,storage,power,scanner,uucp -s /bin/zsh andres
 passwd ${myuser}
-mkdir /home/${myuser}/.vim
-chown ${myuser}:users /home/${myuser}/.vim
+mkdir ${userDir}/.vim
+chown ${myuser}:users ${userDir}/.vim
 
 #echo "=====> Setting home directory encryption"
 #pacman -S --needed encfs pam_encfs
-#homeDir=/home/${myuser}
-#encryptedHome=${homeDir}/.Encrypted
+#encryptedHome=${userDir}/.Encrypted
 #mkdir ${encryptedHome}
-#encfs ${homeDir} ${encryptedHome}
+#encfs ${userDir} ${encryptedHome}
 
 ## Configure for single password sign-on
 #/etc/security/pam_encfs.conf

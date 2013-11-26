@@ -24,3 +24,4 @@ interfaceType=$1
 }
 
 ping -c 3 www.google.com
+# TODO: exit if this ping fails

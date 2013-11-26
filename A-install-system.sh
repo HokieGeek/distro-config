@@ -5,7 +5,7 @@ mydir=$(cd `dirname $0`; pwd)
 . ${mydir}/config.prop
 
 echo "======> Configuring filesystem"
-${mydir}/1-fs.sh ${dev} ${part_root} ${swapfile} ${part_home}
+${mydir}/1-fs.sh ${dev} ${part_root} ${part_home} ${swapfile} ${part_boot}
 
 echo "======> Setting up networking"
 ${mydir}/0-network.sh "--${network}"
@@ -17,9 +17,7 @@ echo "======> Leaving installation environment"
 echo "Rebooting in 5 seconds"
 echo "Remove install media and remember log in as '${myuser}'"
 sleep 5s
-umount ${homeDir}
-sleep 1s
-umount ${rootDir}
+umount -R ${rootDir}
 echo "I've always been in love with you"
 sleep 0.5s
 reboot

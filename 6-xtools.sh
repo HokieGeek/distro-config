@@ -26,7 +26,7 @@ sed \
     -e '/current_theme/{s/^#\s*//;s/default/rear-window,mindlock/}' \
     /etc/slim.conf > /tmp/slim.conf
 echo "cursor            left_ptr" >> /tmp/slim.conf
-    #-e '/default_user/{s/^#\s*//;s/simone/andres/}' \
+    #-e '/default_user/{s/^#\s*//;s/simone/'${myuser}'/}' \
     #-e '/focus_password/{s/^#\s*//;s/no/yes/}' \
 sudo cp /tmp/slim.conf /etc/slim.conf
 sudo systemctl enable slim.service

@@ -1,51 +1,42 @@
 #!/bin/sh
 
-device=$1
-root=$2
-swap=$3
-home=$4
-
 here=$(cd `dirname $0`; pwd)
-rootDir=/mnt
-homeDir=${rootDir}/home
+
 fstabPath=${rootDir}/etc/fstab
 swapSize=1024M
 
 echo "=====> Partition the drive(s)"
-cfdisk ${device}
-#TODO: take EFI option and select this
-# cgdisk ${device}
+cgdisk ${device}
 
 echo "=====> Creating filesystems"
-#TODO: take EFI option and select this
-# mkfs.fat -F32 ${boot}
-mkfs.ext4 ${root}
-mkfs.ext4 ${home}
+[ "${bootloaderType}" = "efi" ] && mkfs.fat -F32 ${part_boot}
+mkfs.ext4 ${part_root}
+mkfs.ext4 ${part_home}
 
 lsblk ${device}
 
 echo "=====> Mounting partitions"
+unmountedHomeDir=${rootDir}/${homeDir}
+unmountedBootDir=${rootDir}/${bootDir}
 mkdir ${rootDir}
-mount ${root} ${rootDir}
+mount ${part_root} ${rootDir}
 sleep 3s
-mkdir ${homeDir}
-mount ${home} ${homeDir}
-
-[ ! -d ${homeDir} ] && {
-    echo "ERROR: ${homeDir} is not mounted. Aborting."
-    exit 5
-}
+mkdir ${unmountedHomeDir}
+mount ${part_home} ${unmountedHomeDir}
+sleep 3s
+mkdir ${unmountedBootDir}
+mount ${part_boot} ${unmountedBootDir}
 
 echo "=====> Installing base system"
-#rankmirrors -v /etc/pacman.d/mirrorlist
 pacstrap ${rootDir} base base-devel
 genfstab -U -p ${rootDir} >> ${fstabPath}
 
 echo "=====> Creating swap"
-[ ! -e ${swap} ] && fallocate -l ${swapSize} ${rootDir}/${swap}
-chmod 0600 ${rootDir}/${swap}
-mkswap ${rootDir}/${swap}
-swapon ${rootDir}/${swap}
+unmountedSwap=${rootDir}/${swap}
+[ ! -e ${swap} ] && fallocate -l ${swapSize} ${unmountedSwap}
+chmod 0600 ${unmountedSwap}
+mkswap ${unmountedSwap}
+swapon ${unmountedSwap}
 echo "${swap} none swap defaults 0 0" >> ${fstabPath}
 
 cat ${fstabPath}
