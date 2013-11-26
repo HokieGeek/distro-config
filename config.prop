@@ -1,12 +1,12 @@
 myuser=andres
-vm=0
 rootDir=/mnt
 homeDir=${rootDir}/home
 dev=/dev/sda
-part_root=/dev/sda3
-part_home=/dev/sda4
-swapfile=${rootDir}/swapfile
+part_root=/dev/sda2
+part_home=/dev/sda3
+swapfile=/swapfile
 
+vm=0
 bootloader=0
 #bootloaderType="bios"
 #part_boot=/dev/sda2
