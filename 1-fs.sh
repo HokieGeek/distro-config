@@ -42,10 +42,10 @@ pacstrap ${rootDir} base base-devel
 genfstab -U -p ${rootDir} >> ${fstabPath}
 
 echo "=====> Creating swap"
-[ ! -e ${swap} ] && fallocate -l ${swapSize} ${swap}
-chmod 0600 ${swap}
-mkswap ${swap}
-swapon ${swap}
+[ ! -e ${swap} ] && fallocate -l ${swapSize} ${rootDir}/${swap}
+chmod 0600 ${rootDir}/${swap}
+mkswap ${rootDir}/${swap}
+swapon ${rootDir}/${swap}
 echo "${swap} none swap defaults 0 0" >> ${fstabPath}
 
 cat ${fstabPath}
