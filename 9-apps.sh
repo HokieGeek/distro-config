@@ -32,6 +32,9 @@ yaourt -S chromium
 # Want to make sure that pipelight is installed *after* chromium
 yaourt -S pipelight
 
+echo "=====> Installing bluetooth"
+sudo pacman -S bluez bluez-utils blueman
+
 echo "=====> Installing some system tools"
 sudo pacman -S openssh rsync gnu-netcat squashfs-tools dash
 sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
@@ -54,6 +57,6 @@ echo "=====> Installing printer stuff"
 sudo pacman -S hplip cups cups-filters ghostscript gsfonts
 
 echo "=====> Installing various useful tools"
-sudo pacman -S virtualbox googlecl pkgfile x11vnc gksudo colordiff lynx mlocate
+sudo pacman -S virtualbox googlecl pkgfile x11vnc colordiff lynx mlocate
 sudo updatedb
 sudo pkgfile --update
