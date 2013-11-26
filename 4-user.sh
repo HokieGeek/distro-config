@@ -13,9 +13,13 @@ mkdir /home/${myuser}/.vim
 chown ${myuser}:users /home/${myuser}/.vim
 
 #echo "=====> Setting home directory encryption"
-#pacman -S --needed encfs
-#encfs /home/${myuser} /home/${myuser}/.Encrypted
+#pacman -S --needed encfs pam_encfs
+#homeDir=/home/${myuser}
+#encryptedHome=${homeDir}/.Encrypted
+#mkdir ${encryptedHome}
+#encfs ${homeDir} ${encryptedHome}
 
+## Configure for single password sign-on
 #/etc/security/pam_encfs.conf
 #encfs_default --idle=1
 
