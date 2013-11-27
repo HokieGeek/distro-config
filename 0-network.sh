@@ -13,13 +13,14 @@ interfaceType=$1
 
 [ "${interfaceType}" = "--wifi" ] && {
     [ "$2" = "--install" ] && {
-        pacman -S --needed wireless_tools wpa_supplicant wpa_actiond dialog
+        pacman -S --needed wireless_tools wpa_supplicant wpa_actiond dialog ifplugd
     } || {
         echo "=====> Setting up wireless connection"
         intf=`iw dev | cut -d: -f2 | egrep -v "(00|lo)" | cut -d' ' -f2`
         ip link set ${intf} up
         wifi-menu ${intf}
-        systemctl enable net-auto-wireless.service
+        sudo systemctl enable netctl-auto@${intf}.service
+        sudo systemctl enable netctl-ifplugd@${intf}.service
     }
 }
 

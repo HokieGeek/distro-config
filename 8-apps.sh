@@ -28,7 +28,7 @@ installAUR ya/yaourt/yaourt.tar.gz
 popd >/dev/null 2>&1
 
 echo "=====> Installing chromium and plugins"
-yaourt -S chromium
+yaourt -S chromium chromium-pepper-flash-stable chromium-libpdf-stable
 # Want to make sure that pipelight is installed *after* chromium
 yaourt -S pipelight
 
@@ -49,6 +49,9 @@ echo "=====> Installing dropbox"
 yaourt -S dropbox dropbox-cli
 sudo systemctl enable dropbox@HokieGeek
 dropbox autostart no
+
+echo "=====> Installing firewall"
+sudo pacman -S ufw
 
 echo "=====> Installing media tools"
 sudo pacman -S --needed gimp vlc deluge playonlinux skype

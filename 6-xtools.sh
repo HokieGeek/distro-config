@@ -13,7 +13,7 @@ echo "=====> Installing audio mixer and touchpad driver"
 sudo pacman -S --needed alsa-utils xf86-input-synaptics
 
 echo "=====> Installing window manager"
-sudo pacman -S --needed xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu terminus-font feh xbacklight
+sudo pacman -S --needed xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu terminus-font feh
 
 echo "=====> Installing login manager"
 sudo pacman -S --needed slim slim-themes archlinux-themes-slim
