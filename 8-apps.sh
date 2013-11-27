@@ -53,6 +53,11 @@ dropbox autostart no
 
 echo "=====> Installing firewall"
 sudo pacman -S ufw
+sudo ufw default deny
+sudo ufw allow 192.168.1.0/24
+sudo ufw allow SSH
+sudo ufw allow VNC
+sudo ufw allow Deluge
 
 echo "=====> Installing media tools"
 sudo pacman -S --needed gimp vlc deluge playonlinux skype
