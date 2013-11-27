@@ -5,6 +5,7 @@ sudo pacman -S --needed git
 cd $HOME
 git clone https://github.com/HokieGeek/dotfiles.git
 dotfiles/setup.sh
+~/.bin/rotate-wallpaper ~/.look/bgs --cron
 
 echo "=====> Downloading and setting up my ssh keys"
 sudo pacman -S --needed wget gnupg
