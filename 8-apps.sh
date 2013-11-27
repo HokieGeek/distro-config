@@ -36,7 +36,7 @@ echo "=====> Installing bluetooth"
 sudo pacman -S --needed bluez bluez-utils blueman
 
 echo "=====> Installing some system tools"
-sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash
+sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash hdparm evince
 sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 sudo systemctl start sshd && sudo systemctl enable sshd.service
 
@@ -60,12 +60,12 @@ sudo ufw allow VNC
 sudo ufw allow Deluge
 
 echo "=====> Installing media tools"
-sudo pacman -S --needed gimp vlc deluge playonlinux skype
+sudo pacman -S --needed gimp vlc deluge playonlinux skype scrot inkscape mplayer
 
 echo "=====> Installing printer stuff"
 sudo pacman -S --needed hplip cups cups-filters ghostscript gsfonts
 
 echo "=====> Installing various useful tools"
-sudo pacman -S --needed virtualbox googlecl pkgfile x11vnc colordiff lynx mlocate
+sudo pacman -S --needed virtualbox googlecl pkgfile x11vnc colordiff lynx mlocate htop
 sudo updatedb
 sudo pkgfile --update

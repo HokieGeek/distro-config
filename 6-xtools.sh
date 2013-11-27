@@ -1,10 +1,13 @@
 #!/bin/sh
 
-echo "=====> Installing Xorg Tools"
+echo "=====> Installing Xorg tools"
 sudo pacman -S --needed xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-twm xorg-xclock
 
 echo "=====> Installing terminals"
-sudo pacman -S --needed xterm terminator screen
+sudo pacman -S --needed xterm terminator screen rxvt-unicode
+
+echo "=====> Installing file manager"
+sudo pacman -S --needed ranger highlight atool poppler mediainfo
 
 echo "=====> Installing video driver"
 sudo pacman -S --needed mesa xf86-video-intel lib32-intel-dri lib32-mesa-libgl
@@ -13,7 +16,7 @@ echo "=====> Installing audio mixer and touchpad driver"
 sudo pacman -S --needed alsa-utils xf86-input-synaptics
 
 echo "=====> Installing window manager"
-sudo pacman -S --needed xmonad xmonad-contrib dzen2 conky dmenu gmrun xcompmgr ttf-dejavu terminus-font feh
+sudo pacman -S --needed xmonad xmonad-contrib dzen2 conky dmenu xcompmgr ttf-dejavu terminus-font feh
 
 echo "=====> Installing login manager"
 sudo pacman -S --needed slim slim-themes archlinux-themes-slim
