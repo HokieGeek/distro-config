@@ -38,6 +38,7 @@ sudo pacman -S --needed bluez bluez-utils blueman
 echo "=====> Installing some system tools"
 sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash
 sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
+sudo systemctl start sshd && sudo systemctl enable sshd.service
 
 echo "=====> Installing programming tools"
 yaourt -S eclipse eclipse-vrapper
