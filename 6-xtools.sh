@@ -4,7 +4,7 @@ echo "=====> Installing Xorg tools"
 sudo pacman -S --needed xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-twm xorg-xclock xorg-xmessage
 
 echo "=====> Installing terminals"
-sudo pacman -S --needed xterm terminator screen rxvt-unicode
+sudo pacman -S --needed rxvt-unicode terminator screen reptyr
 
 echo "=====> Installing file manager"
 sudo pacman -S --needed ranger highlight atool poppler mediainfo
