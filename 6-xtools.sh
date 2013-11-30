@@ -7,7 +7,7 @@ echo "=====> Installing terminals"
 sudo pacman -S --needed rxvt-unicode terminator screen reptyr
 
 echo "=====> Installing file manager"
-sudo pacman -S --needed ranger highlight atool poppler mediainfo
+sudo pacman -S --needed ranger highlight atool poppler mediainfo w3m
 
 echo "=====> Installing video driver"
 sudo pacman -S --needed mesa xf86-video-intel lib32-intel-dri lib32-mesa-libgl
