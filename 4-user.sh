@@ -6,7 +6,7 @@ echo "=====> Set root password: "
 passwd
 
 echo "=====> Creating user '$myuser': "
-pacman -S --needed sudo bash-completion vim zsh
+pacman -S --needed sudo bash-completion gvim zsh
 useradd -m -g users -G wheel,storage,power,scanner,uucp -s /bin/zsh andres
 passwd ${myuser}
 mkdir ${userDir}/.vim
