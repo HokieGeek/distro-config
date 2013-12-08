@@ -5,8 +5,10 @@ sudo pacman -S --needed git
 cd $HOME
 git clone https://github.com/HokieGeek/dotfiles.git
 dotfiles/setup.sh
-~/.bin/rotate-wallpaper ~/.look/bgs --cron
 ~/.bin/publishExternalIp --cron
+~/.bin/rotate-wallpaper ~/.look/bgs --cron
+sudo systemctl enable cronie.service
+sudo systemctl start cronie.service
 
 echo "=====> Downloading and setting up my ssh keys"
 sudo pacman -S --needed wget gnupg
