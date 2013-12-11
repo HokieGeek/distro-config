@@ -66,6 +66,6 @@ echo "=====> Installing printer stuff"
 sudo pacman -S --needed hplip cups cups-filters ghostscript gsfonts
 
 echo "=====> Installing various useful tools"
-sudo pacman -S --needed virtualbox googlecl pkgfile x11vnc colordiff lynx mlocate htop
+sudo pacman -S --needed virtualbox googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip
 sudo updatedb
 sudo pkgfile --update
