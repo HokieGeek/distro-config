@@ -1,10 +1,27 @@
 #!/bin/sh
 
+myuser=$1
+
 echo "=====> Installing Xorg tools"
 sudo pacman -S --needed xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-twm xorg-xclock xorg-xmessage
 
 echo "=====> Installing terminals"
 sudo pacman -S --needed rxvt-unicode tmux reptyr
+cat << EOF > ~/.xinitrc
+[Unit]
+Description=RXVT-Unicode Daemon
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=%i
+ExecStart=/usr/bin/urxvtd -q -f -o
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl enable urxvtd@${myuser}.service
+sudo systemctl start urxvtd@${myuser}.service
 
 echo "=====> Installing file manager"
 sudo pacman -S --needed ranger highlight atool poppler mediainfo w3m
