@@ -60,7 +60,7 @@ sudo ufw allow VNC
 sudo ufw allow Deluge
 
 echo "=====> Installing media tools"
-sudo pacman -S --needed gimp vlc deluge playonlinux skype scrot inkscape mplayer mpd
+sudo pacman -S --needed gimp vlc deluge playonlinux skype scrot screenfetch inkscape mplayer mpd
 
 echo "=====> Installing printer stuff"
 sudo pacman -S --needed hplip cups cups-filters ghostscript gsfonts
