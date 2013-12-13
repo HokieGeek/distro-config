@@ -7,7 +7,7 @@ sudo pacman -S --needed xorg-server xorg-xinit xorg-utils xorg-server-utils xorg
 
 echo "=====> Installing terminals"
 sudo pacman -S --needed rxvt-unicode tmux reptyr
-cat << EOF > ~/.xinitrc
+cat << EOF > /etc/systemd/system/urxvtd@.service
 [Unit]
 Description=RXVT-Unicode Daemon
 
