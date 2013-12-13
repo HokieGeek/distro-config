@@ -1,11 +1,15 @@
 #!/bin/sh
 
 myuser=$1
+myhostname=$2
 
 echo "=====> Set root password: "
 passwd
 
-echo "=====> Creating user '$myuser': "
+echo "=====> Setting hostname '$myhostname'"
+echo $myhostname > /etc/hostname
+
+echo "=====> Creating user '$myuser'"
 pacman -S --needed sudo bash-completion gvim zsh
 useradd -m -g users -G wheel,storage,power,scanner,uucp -s /bin/zsh andres
 passwd ${myuser}
