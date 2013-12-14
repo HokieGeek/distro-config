@@ -60,12 +60,42 @@ sudo ufw allow VNC
 sudo ufw allow Deluge
 
 echo "=====> Installing media tools"
-sudo pacman -S --needed gimp vlc deluge playonlinux skype scrot screenfetch inkscape mplayer mpd
+echo "======> Image and Video tools"
+sudo pacman -S --needed gimp vlc skype scrot screenfetch inkscape mplayer blender wings3d
+
+echo "======> Audio tools"
+sudo pacman -S --needed eject cdparanoia id3 abcde mpd ncmpcpp
+yaourt -S google-musicmanager
+mkdir ~/music
+# TODO: add music
+ln -s ~/music ~/.mpd
+{
+    user=`whoami`
+    echo "user \"$user\""
+    echo "pid_file \"/home/$user/.mpd/mpd.pid\""
+    echo "db_file \"/home/$user/.mpd/mpd.db\""
+    echo "state_file \"/home/$user/.mpd/mpdstate\""
+    echo "playlist_directory \"/home/$user/.mpd/playlists\""
+    echo "music_directory \"/home/$user/.mpd/music\""
+} > /tmp/mpd.conf
+
+#cat << EOF >> /tmp/mpd.conf
+
+#audio_output {
+    #type        "fifo"
+    #name        "my_fifo"
+    #path        "/tmp/mpd.fifo"
+    #format      "44100:16:2"
+#}
+#EOF
+sudo mv /tmp/mpd.conf /etc/mpd.conf
+sudo systemctl enable mpd.service
+sudo systemctl start mpd.service
 
 echo "=====> Installing printer stuff"
 sudo pacman -S --needed hplip cups cups-filters ghostscript gsfonts
 
 echo "=====> Installing various useful tools"
-sudo pacman -S --needed virtualbox googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip
+sudo pacman -S --needed virtualbox playonlinux googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip deluge
 sudo updatedb
 sudo pkgfile --update
