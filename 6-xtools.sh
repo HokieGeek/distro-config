@@ -58,6 +58,7 @@ echo "=====> Creating xinitrc"
 cat << EOF > ~/.xinitrc
 #!/bin/sh
 
+xinput -disable 'ELAN Touchscreen'
 xrandr --output \`xrandr | awk '$2~/connected/{ print $1 }'\` --auto
 xsetroot -cursor_name left_ptr
 ~/.bin/rotate-wallpaper ~/.look/bgs
