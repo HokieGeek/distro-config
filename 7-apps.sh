@@ -34,6 +34,7 @@ yaourt -S pipelight
 
 echo "=====> Installing bluetooth"
 sudo pacman -S --needed bluez bluez-utils blueman
+sudo systemctl start bluetooth
 
 echo "=====> Installing some system tools"
 sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash hdparm evince pm-utils
@@ -93,9 +94,10 @@ sudo systemctl enable mpd.service
 sudo systemctl start mpd.service
 
 echo "=====> Installing printer stuff"
-sudo pacman -S --needed hplip cups cups-filters ghostscript gsfonts
+sudo pacman -S --needed hplip cups cups-filters ghostscript gsfonts sane
 
 echo "=====> Installing various useful tools"
-sudo pacman -S --needed virtualbox playonlinux googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip deluge
+sudo pacman -S --needed virtualbox virtualbox-host-modules dkms playonlinux googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip deluge cdrkit
+sudo modprobe vboxdrv
 sudo updatedb
 sudo pkgfile --update
