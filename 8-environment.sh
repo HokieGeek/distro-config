@@ -9,6 +9,8 @@ dotfiles/setup.sh
 ~/.bin/rotate-wallpaper ~/.look/bgs --cron
 sudo systemctl enable cronie.service
 sudo systemctl start cronie.service
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+vim +"BufferInstall" +"qall"
 
 echo "=====> Downloading and setting up my ssh keys"
 sudo pacman -S --needed wget gnupg
