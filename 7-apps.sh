@@ -37,7 +37,7 @@ sudo pacman -S --needed bluez bluez-utils blueman
 sudo systemctl start bluetooth
 
 echo "=====> Installing some system tools"
-sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash hdparm evince pm-utils
+sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash hdparm evince pm-utils ack the_silver_searcher
 sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 sudo systemctl start sshd && sudo systemctl enable sshd.service
 
