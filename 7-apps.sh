@@ -63,6 +63,7 @@ sudo ufw allow Deluge
 echo "=====> Installing media tools"
 echo "======> Image and Video tools"
 sudo pacman -S --needed gimp vlc skype scrot screenfetch inkscape mplayer blender wings3d
+yaourt -S libdvdread libdvdcss libdvdnav
 
 echo "======> Audio tools"
 sudo pacman -S --needed eject cdparanoia id3 abcde mpd ncmpcpp
