@@ -45,7 +45,7 @@ echo "=====> Installing programming tools"
 yaourt -S eclipse eclipse-vrapper
 # TODO: arduino (the beta isn't working)
 # yaourt -S xmonad-darcs
-sudo pacman -S --needed mercurial scons minicom
+sudo pacman -S --needed mercurial scons minicom apache-ant cmake
 
 echo "=====> Installing dropbox"
 yaourt -S dropbox dropbox-cli
