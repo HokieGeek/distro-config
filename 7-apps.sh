@@ -42,9 +42,8 @@ sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 sudo systemctl start sshd && sudo systemctl enable sshd.service
 
 echo "=====> Installing programming tools"
-yaourt -S eclipse eclipse-vrapper
+yaourt -S eclipse eclipse-vrapper go
 # TODO: arduino (the beta isn't working)
-# yaourt -S xmonad-darcs
 sudo pacman -S --needed mercurial scons minicom apache-ant cmake
 
 echo "=====> Installing dropbox"
