@@ -1,4 +1,4 @@
-sudo pacman -S virtualbox-guest-utils
+sudo pacman -S virtualbox-guest-utils virtualbox-host-modules
 
 sudo modprobe -a vboxguest vboxsf vboxvideo
 

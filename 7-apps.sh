@@ -37,12 +37,12 @@ sudo pacman -S --needed bluez bluez-utils blueman
 sudo systemctl start bluetooth
 
 echo "=====> Installing some system tools"
-sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash hdparm evince pm-utils ack the_silver_searcher
+sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash hdparm evince pm-utils ack the_silver_searcher dos2unix
 sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 sudo systemctl start sshd && sudo systemctl enable sshd.service
 
 echo "=====> Installing programming tools"
-yaourt -S eclipse eclipse-vrapper go
+yaourt -S eclipse eclipse-vrapper jslint go
 # TODO: arduino (the beta isn't working)
 sudo pacman -S --needed mercurial scons minicom apache-ant cmake
 
