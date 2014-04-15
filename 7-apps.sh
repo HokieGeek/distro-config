@@ -102,3 +102,6 @@ sudo pacman -S --needed virtualbox virtualbox-host-modules dkms playonlinux goog
 sudo modprobe vboxdrv
 sudo updatedb
 sudo pkgfile --update
+
+echo "=====> Lastly, games!"
+yaourt -S nethack zork1 zork2 zork3
