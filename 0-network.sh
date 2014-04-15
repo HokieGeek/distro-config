@@ -10,7 +10,6 @@ interfaceType=$1
         sudo systemctl start dhcpcd@${intf}.service
     }
 
-
 [ "${interfaceType}" = "--wifi" ] && {
     [ "$2" = "--install" ] && {
         pacman -S --needed wireless_tools wpa_supplicant wpa_actiond dialog ifplugd
