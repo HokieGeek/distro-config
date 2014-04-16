@@ -12,6 +12,7 @@ ${mydir}/0-network.sh "--${network}" --install
 ${mydir}/3-packaging.sh
 ${mydir}/4-user.sh ${myuser} ${myhostname}
 [ ${bootloader} -gt 0 ] && ${mydir}/5-boot.sh
+sudo ${mydir}/6-startup.sh
 
 echo "exec ${mydir}/C-configure-user.sh" > /home/${myuser}/.zprofile
 chown ${myuser}:users /home/${myuser}/.zprofile
