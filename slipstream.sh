@@ -8,7 +8,7 @@ fi
 here=$(cd `dirname $0`; pwd)
 iso=$1
 [ $# -gt 1 ] && usb=$2 || usb=""
-label=$(file ${iso} | awk -F"'" '{ print $2 }' | cut -d' ' -f1)
+label=$(dd if=${iso} bs=1 skip=32808 count=32 2>/dev/null | awk '{ print $1 }')
 name=$(basename $iso | sed 's/\(.*\)\.iso/\1/g')
 target=/tmp/arch-iso
 mount=/mnt/arch
