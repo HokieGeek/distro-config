@@ -25,5 +25,8 @@ sudo pacman -S --needed acpid
 sed -e "s;logger 'LID closed';echo -n mem > /sys/power/state;" /etc/acpi/handler.sh > /tmp/handler.sh
 sudo mv /tmp/handler.sh /etc/acpi
 
+echo "=====> Loading loop device on startup"
+sudo echo "loop" >> /etc/modules-load.d/modules.conf
+
 #echo "=====> Installing SD Card driver"
 #http://www.realtek.com.tw/DOWNLOADS/RedirectFTPSite.aspx?SiteID=1&DownTypeID=3&DownID=951&PFid=25&Conn=3&FTPPath=ftp%3a%2f%2f208.70.202.219%2fpc%2fcrc%2frts_pstor.tar.bz2
