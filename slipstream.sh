@@ -1,7 +1,13 @@
 #!/bin/bash
 
+if [ $# -eq 0 ]; then
+    echo "USAGE: `basename $0` <iso> [<usbdev>]"
+    exit 0
+fi
+
 here=$(cd `dirname $0`; pwd)
 iso=$1
+[ $# -gt 1 ] && usb=$2 || usb=""
 label=$(file ${iso} | awk -F"'" '{ print $2 }' | cut -d' ' -f1)
 name=$(basename $iso | sed 's/\(.*\)\.iso/\1/g')
 target=/tmp/arch-iso
@@ -68,3 +74,8 @@ mkisofs -r -V ${label} -cache-inodes -J -l \
     -o `dirname ${iso}`/${name}-config.iso ${target}/${name}
 
 rm -rf ${target}
+
+# Copy to USB if the option is there
+if [ ! -z "$usb" ]; then
+    sudo dd bs=4M if=`dirname ${iso}`/${name}-config.iso of=$usb && sync
+fi
