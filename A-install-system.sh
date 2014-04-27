@@ -5,7 +5,8 @@ mydir=$(cd `dirname $0`; pwd)
 . ${mydir}/config.prop
 
 echo "======> Configuring filesystem"
-${mydir}/1-fs.sh ${dev} ${part_root} ${part_home} ${swapfile} ${part_boot}
+${mydir}/1-fs.sh
+# ${mydir}/1-fs.sh ${device} ${partRoot} ${partHome} ${partBoot} ${swapfile} ${swapSize} ${rootSize}
 
 echo "======> Setting up networking"
 ${mydir}/0-network.sh "--${network}"

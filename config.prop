@@ -6,10 +6,12 @@ bootDir=/boot
 userDir=${homeDir}/${myuser}
 
 device=/dev/sda
-part_boot=${device}1
-part_root=${device}2
-part_home=${device}3
+partBoot=${device}1
+partRoot=${device}2
+partHome=${device}3
 swapfile=/swapfile
+swapSize=1024M
+rootSize=100G
 
 vm=0
 bootloader=1

@@ -5,7 +5,7 @@ mydir=$(cd `dirname $0`; pwd)
 . ${mydir}/config.prop
 
 echo "======> Setting up the network"
-${mydir}/0-network.sh --${network}
+sudo ${mydir}/0-network.sh --${network}
 
 echo "======> Installing user applications"
 ${mydir}/7-xtools.sh ${myuser}

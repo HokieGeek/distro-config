@@ -3,15 +3,19 @@
 here=$(cd `dirname $0`; pwd)
 
 fstabPath=${rootDir}/etc/fstab
-swapSize=1024M
+
+#sgdisk ${device} --zap-all
 
 echo "=====> Partition the drive(s)"
-cgdisk ${device}
+# cgdisk ${device}
+[ "${bootloaderType}" == "bios" ] && sgdisk ${device} --new=1:2048:+1007K --typecode=1:ef02
+sgdisk ${device} --new=2:0:${rootSize} --largest-new=3
+sgdisk ${device} --print
 
 echo "=====> Creating filesystems"
-[ "${bootloaderType}" = "efi" ] && mkfs.fat -F32 ${part_boot}
-mkfs.ext4 ${part_root}
-mkfs.ext4 ${part_home}
+[ "${bootloaderType}" == "efi" ] && mkfs.fat -F32 ${partBoot}
+mkfs.ext4 ${partRoot}
+mkfs.ext4 ${partHome}
 
 lsblk ${device}
 
@@ -19,13 +23,13 @@ echo "=====> Mounting partitions"
 unmountedHomeDir=${rootDir}/${homeDir}
 unmountedBootDir=${rootDir}/${bootDir}
 mkdir ${rootDir}
-mount ${part_root} ${rootDir}
+mount ${partRoot} ${rootDir}
 sleep 3s
 mkdir ${unmountedHomeDir}
-mount ${part_home} ${unmountedHomeDir}
+mount ${partHome} ${unmountedHomeDir}
 sleep 3s
 mkdir ${unmountedBootDir}
-mount ${part_boot} ${unmountedBootDir}
+mount ${partBoot} ${unmountedBootDir}
 
 echo "=====> Installing base system"
 pacstrap ${rootDir} base base-devel
