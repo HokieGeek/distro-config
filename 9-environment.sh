@@ -25,5 +25,14 @@ sudo pacman -S --needed acpid
 sed -e "s;logger 'LID closed';echo -n mem > /sys/power/state;" /etc/acpi/handler.sh > /tmp/handler.sh
 sudo mv /tmp/handler.sh /etc/acpi
 
+echo "=====> Suspend when battery is low"
+cat << EOF > /tmp/99-lowbat.rules
+# Suspend the system when battery level drops to 2% or lower
+SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="2", RUN+="/usr/bin/systemctl suspend"
+SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="1", RUN+="/usr/bin/systemctl suspend"
+SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="0", RUN+="/usr/bin/systemctl suspend"
+EOF
+sudo mv /tmp/99-lowbat.rules /etc/udev/rules.d
+
 #echo "=====> Installing SD Card driver"
 #http://www.realtek.com.tw/DOWNLOADS/RedirectFTPSite.aspx?SiteID=1&DownTypeID=3&DownID=951&PFid=25&Conn=3&FTPPath=ftp%3a%2f%2f208.70.202.219%2fpc%2fcrc%2frts_pstor.tar.bz2
