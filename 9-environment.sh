@@ -1,5 +1,9 @@
 #!/bin/sh
 
+here=$(cd `dirname $0`; pwd)
+
+. ${here}/config.prop
+
 echo "=====> Downloading and setting up my ssh keys"
 sudo pacman -S --needed wget gnupg
 ssh_keys_tarball="https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg"

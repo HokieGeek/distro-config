@@ -1,4 +1,6 @@
-echo "=====> Startup options"
+. ${mydir}/config.prop
+
+# echo "=====> Startup options"
 
 echo "======> Kernel modules"
 echo "loop" >> /etc/modules-load.d/modules.conf

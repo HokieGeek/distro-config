@@ -1,5 +1,9 @@
 #!/bin/sh
 
+here=$(cd `dirname $0`; pwd)
+
+. ${here}/config.prop
+
 myuser=$1
 
 echo "=====> Installing Xorg tools"

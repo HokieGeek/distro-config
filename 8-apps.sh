@@ -1,5 +1,9 @@
 #!/bin/bash
 
+here=$(cd `dirname $0`; pwd)
+
+. ${here}/config.prop
+
 # Because: shiiiit!
 sudo mount -o remount,size=10G,noatime /tmp
 

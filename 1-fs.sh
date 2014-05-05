@@ -2,6 +2,8 @@
 
 here=$(cd `dirname $0`; pwd)
 
+. ${here}/config.prop
+
 fstabPath=${rootDir}/etc/fstab
 
 #sgdisk ${device} --zap-all

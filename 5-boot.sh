@@ -1,5 +1,9 @@
 #!/bin/sh
 
+here=$(cd `dirname $0`; pwd)
+
+. ${here}/config.prop
+
 ### EFI
 [ "${bootloaderType}" = "--efi" ] && {
     echo "=====> Installing EFI bootloader"

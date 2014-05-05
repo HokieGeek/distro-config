@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ `pacman -Q1 netctl` -eq 1 -o `pacman -Q1 iw` -eq 1 ]; then
-    echo "=====> Installing networking tools"
-    pacman -S --needed netctl iw wpa_supplicant wpa_actiond dialog ifplugd
-fi
+pacman -Ql netctl || {
+    echo "=====> Installing any needed networking tools"
+    pacman -S --needed iw netctl wpa_supplicant wpa_actiond dialog ifplugd
+}
 
 wired=`iw dev | awk '$0 ~ /Interface/ { print $2 }' | egrep '^e'`
 if [ ! -z "${wired}" ]; then
