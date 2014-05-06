@@ -15,7 +15,7 @@ echo $myhostname > /etc/hostname
 
 echo "=====> Creating user '$myuser'"
 pacman -S --needed sudo bash-completion gvim zsh
-useradd -m -g users -G wheel,storage,power,scanner,uucp -s /bin/zsh andres
+useradd -m -g users -G wheel,storage,power,scanner,uucp -s /usr/bin/zsh andres
 passwd ${myuser}
 mkdir ${userDir}/.vim
 chown ${myuser}:users ${userDir}/.vim
@@ -38,3 +38,5 @@ sed 's/#\s*\(%wheel\)/\1/g' /tmp/sudoers > /etc/sudoers
 
 echo "=====> Allowing user to execute pm-suspend without a password"
 echo "%${myuser} ALL=(ALL) NOPASSWD: /usr/sbin/pm-suspend" >> /etc/sudoers
+
+exit 0

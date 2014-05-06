@@ -1,4 +1,6 @@
-. ${mydir}/config.prop
+here=$(cd `dirname $0`; pwd)
+
+. ${here}/config.prop
 
 # echo "=====> Startup options"
 

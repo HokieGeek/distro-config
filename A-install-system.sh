@@ -5,14 +5,15 @@ mydir=$(cd `dirname $0`; pwd)
 . ${mydir}/config.prop
 
 echo "======> Configuring filesystem"
-${mydir}/1-fs.sh || exit 1
+${mydir}/1-fs.sh || exit 11
 # ${mydir}/1-fs.sh ${device} ${partRoot} ${partHome} ${partBoot} ${swapfile} ${swapSize} ${rootSize}
 
 echo "======> Setting up networking"
-${mydir}/0-network.sh || exit 2
+${mydir}/0-network.sh
+# || exit 12
 
 echo "======> Installing base system"
-arch-chroot ${rootDir} ${mydir}/B-root-setup.sh || exit 3
+arch-chroot ${rootDir} ${mydir}/B-root-setup.sh || exit 13
 
 echo "======> Leaving installation environment"
 echo "Rebooting in 5 seconds"

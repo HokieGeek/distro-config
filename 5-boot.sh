@@ -5,7 +5,7 @@ here=$(cd `dirname $0`; pwd)
 . ${here}/config.prop
 
 ### EFI
-[ "${bootloaderType}" = "--efi" ] && {
+[ "${bootloaderType}" == "efi" ] && {
     echo "=====> Installing EFI bootloader"
     mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 
@@ -27,7 +27,7 @@ here=$(cd `dirname $0`; pwd)
 
 
 ### i386
-[ "${bootloaderType}" = "--bios" ] && {
+[ "${bootloaderType}" == "bios" ] && {
     echo "=====> Installing BIOS bootloader"
     pacman -S --needed grub-bios os-prober
     grub-install --target=i386-pc --recheck /dev/sda
