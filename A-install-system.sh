@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+#exec 2>&1 >/tmp
 
 mydir=$(cd `dirname $0`; pwd)
 

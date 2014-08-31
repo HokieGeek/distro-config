@@ -63,7 +63,7 @@ echo "=====> Creating xinitrc"
 cat << EOF > ~/.xinitrc
 #!/bin/sh
 
-syndaemon -k -i 1.25 -d
+syndaemon -k -i 0.8 -d
 xinput -disable 'ELAN Touchscreen'
 xrandr --output \`xrandr | awk '$2~/connected/{ print $1 }'\` --auto
 xsetroot -cursor_name left_ptr

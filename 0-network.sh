@@ -10,8 +10,10 @@ wired=`ip link show | awk -F: '$0 ~ /^[0-9]/ && $2 !~ /lo/ { sub(/\s*/, "", $2);
 if [ ! -z "${wired}" ]; then
     echo "=====> Setting up ethernet connection"
     f="/etc/netctl/default/${wired}"
+    mkdir -p `dirname $f`
     cp /etc/netctl/examples/ethernet-dhcp ${f}
     sed -i "s/\(Interface=\).*/\1${wired}/g" ${f}
+    # dhcpcd ${wired}
     systemctl enable netctl-ifplugd@${wired}.service
     systemctl start netctl-ifplugd@${wired}.service
 fi

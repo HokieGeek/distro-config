@@ -47,6 +47,20 @@ echo "${swap} none swap defaults 0 0" >> ${fstabPath}
 
 cat ${fstabPath}
 
+# TODO
+errors=0
+if [ $(lsblk | awk "\$1 ~ /`basename ${partRoot}`/ { print \$NF }") != ${rootDir} ]; then
+    errors=1
+    echo "ERROR: Did not mount the root partition"
+fi
+if [ $(lsblk | awk "\$1 ~ /`basename ${partHome}`/ { print \$NF }") != ${homeDir} ]; then
+    errors=1
+    echo "ERROR: Did not mount the home partition"
+fi
+if [ $errors -gt 0 ]; then
+    exit 1
+fi
+
 echo "=====> Installing distro-config scripts to the new system"
 cp -r ${here} ${rootDir}
 chmod 777 -R ${rootDir}/`basename ${here}`

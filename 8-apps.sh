@@ -34,7 +34,7 @@ popd >/dev/null 2>&1
 echo "=====> Installing chromium and plugins"
 yaourt -S chromium chromium-pepper-flash-stable chromium-libpdf-stable
 # Want to make sure that pipelight is installed *after* chromium
-yaourt -S pipelight
+yaourt -S pipelight icedtea-web-java7
 
 echo "=====> Installing bluetooth"
 sudo pacman -S --needed bluez bluez-utils blueman
@@ -46,7 +46,7 @@ sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 sudo systemctl start sshd && sudo systemctl enable sshd.service
 
 echo "=====> Installing programming tools"
-yaourt -S eclipse eclipse-vrapper jslint go
+yaourt -S eclipse eclipse-vrapper jslint go jdk7-openjdk
 # TODO: arduino (the beta isn't working)
 sudo pacman -S --needed mercurial scons minicom apache-ant cmake
 

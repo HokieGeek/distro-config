@@ -14,5 +14,5 @@ ${mydir}/4-user.sh ${myuser} ${myhostname} || exit 24
 [ ${bootloader} -gt 0 ] && ${mydir}/5-boot.sh || exit 25
 ${mydir}/6-startup.sh || exit 26
 
-echo "exec ${mydir}/C-configure-user.sh" > /home/${myuser}/.zprofile
-chown ${myuser}:users /home/${myuser}/.zprofile
+# echo "exec ${mydir}/C-configure-user.sh" > /home/${myuser}/.zprofile
+# chown ${myuser}:users /home/${myuser}/.zprofile
