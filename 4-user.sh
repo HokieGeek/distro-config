@@ -1,9 +1,5 @@
 #!/bin/sh
 
-# here=$(cd `dirname $0`; pwd)
-
-# . ${mydir}/config.prop
-
 myuser=$1
 myhostname=$2
 

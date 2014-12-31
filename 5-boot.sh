@@ -1,15 +1,13 @@
 #!/bin/sh
 
-here=$(cd `dirname $0`; pwd)
-
-. ${here}/config.prop
+bootloaderType=$1
 
 ### EFI
 [ "${bootloaderType}" == "efi" ] && {
     echo "=====> Installing EFI bootloader"
-    mount -t efivarfs efivarfs /sys/firmware/efi/efivars
+    #mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 
-    pacman -S gummiboot
+    pacman -S dosfstools gummiboot
     gummiboot install
 
     {

@@ -8,37 +8,40 @@ here=$(cd `dirname $0`; pwd)
 sudo mount -o remount,size=10G,noatime /tmp
 
 # install yaourt
-installAUR() {
-    pkg=`echo $1 | awk -F'/' '{ print $2 }'`
-
-    wget https://aur.archlinux.org/packages/$1
-    tar -xvzf `basename $1`
-
-    cd $pkg
-
-    makepkg -s
-    sudo pacman -U ${pkg}*.tar.xz
-
-    cd ..
-
-    rm -rf ${pkg}*
-}
+#installAUR() {
+#    pkg=`echo $1 | awk -F'/' '{ print $2 }'`
+#
+#    wget https://aur.archlinux.org/packages/$1
+#    tar -xvzf `basename $1`
+#
+#    cd $pkg
+#
+#    makepkg -s
+#    sudo pacman -U --needed ${pkg}*.tar.xz
+#
+#    cd ..
+#
+#    rm -rf ${pkg}*
+#}
 
 echo "=====> Installing AUR helper"
+sudo pacman -S --needed wget
 pushd . >/dev/null 2>&1
 cd /tmp
-installAUR pa/package-query/package-query.tar.gz
-installAUR ya/yaourt/yaourt.tar.gz
+# TODO: Only install if needed
+${here}/installAUR pa/package-query/package-query.tar.gz
+${here}/installAUR ya/yaourt/yaourt.tar.gz
 popd >/dev/null 2>&1
 
 echo "=====> Installing chromium and plugins"
-yaourt -S chromium chromium-pepper-flash-stable chromium-libpdf-stable
+yaourt -S chromium-dev chromium-pepper-flash icedtea-web #chromium-libpdf 
 # Want to make sure that pipelight is installed *after* chromium
-yaourt -S pipelight icedtea-web-java7
+#yaourt -S pipelight
 
 echo "=====> Installing bluetooth"
-sudo pacman -S --needed bluez bluez-utils blueman
-sudo systemctl start bluetooth
+#sudo pacman -S --needed bluez bluez-utils
+#sudo systemctl start bluetooth
+#sudo systemctl enable bluetooth
 
 echo "=====> Installing some system tools"
 sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash hdparm evince pm-utils ack the_silver_searcher dos2unix
@@ -46,7 +49,7 @@ sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 sudo systemctl start sshd && sudo systemctl enable sshd.service
 
 echo "=====> Installing programming tools"
-yaourt -S eclipse eclipse-vrapper jslint go jdk7-openjdk
+yaourt -S eclipse eclipse-vrapper jslint go jdk7-openjdk ctags android-studio android-sdk-platform-tools
 # TODO: arduino (the beta isn't working)
 sudo pacman -S --needed mercurial scons minicom apache-ant cmake
 
@@ -98,13 +101,30 @@ sudo systemctl enable mpd.service
 sudo systemctl start mpd.service
 
 echo "=====> Installing printer stuff"
-sudo pacman -S --needed hplip cups cups-filters ghostscript gsfonts sane
+sudo pacman -S --needed cups cups-filters cups-pdf bluez-cups ghostscript gsfonts sane
+sudo pacman -S --needed hplip
+sudo systemctl start org.cups.cupsd.service
+sudo systemctl enable org.cups.cupsd.service
+sudo groupadd printadmin
+sudo groupadd lp
+{
+    user=`whoami`
+    sudo gpasswd -a ${user} printadmin
+    sudo gpasswd -a ${user} lp
+}
+# /etc/cups/cups-files.conf
+# SystemGroup sys root -> SystemGroup sys root printadmin
+
+# /etc/cups/cups-pdf.conf
+# #Out /var/spool/cups-pdf/${USER} -> Out ${HOME}
+
+sudo systemctl restart org.cups.cupsd.service
 
 echo "=====> Installing various useful tools"
-sudo pacman -S --needed virtualbox virtualbox-host-modules dkms playonlinux googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip deluge cdrkit
+sudo pacman -S --needed virtualbox virtualbox-host-modules dkms playonlinux googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip deluge cdrkit lsof
 sudo modprobe vboxdrv
 sudo updatedb
 sudo pkgfile --update
 
 echo "=====> Lastly, games!"
-yaourt -S nethack zork1 zork2 zork3
+yaourt -S nethack zork1 zork2 zork3 gnugo vassal

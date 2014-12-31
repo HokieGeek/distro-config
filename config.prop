@@ -1,5 +1,5 @@
 myuser=andres
-myhostname=jughead
+myhostname=archie
 rootDir=/mnt
 homeDir=/home
 bootDir=/boot
@@ -13,7 +13,7 @@ swapfile=/swapfile
 swapSize=1024M
 rootSize=100G
 
-vm=1
+vm=0
 bootloader=1
-bootloaderType="bios"
+bootloaderType="efi"
 network="wifi"

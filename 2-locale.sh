@@ -1,9 +1,5 @@
 #!/bin/sh
 
-here=$(cd `dirname $0`; pwd)
-
-. ${here}/config.prop
-
 lang="en_US.UTF-8"
 loc="US/Eastern"
 

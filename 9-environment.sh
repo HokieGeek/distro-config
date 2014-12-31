@@ -13,8 +13,10 @@ $(cd $HOME/.ssh && \
     wget -P ${HOME}/.ssh ${ssh_keys_tarball} && \
     gpg -d ${ssh_keys_name} | tar -xvz && rm -rf ${ssh_keys_name})
 
+#exit 42
+
 echo "=====> Downloading and setting up dotfiles"
-sudo pacman -S --needed git
+sudo pacman -S --needed git cronie
 cd $HOME
 git clone https://github.com/HokieGeek/dotfiles.git
 git submodule update --recursive --init
@@ -25,9 +27,9 @@ sudo systemctl enable cronie.service
 sudo systemctl start cronie.service
 
 echo "=====> Enabling suspension on lid closing"
-sudo pacman -S --needed acpid
-sed -e "s;logger 'LID closed';echo -n mem > /sys/power/state;" /etc/acpi/handler.sh > /tmp/handler.sh
-sudo mv /tmp/handler.sh /etc/acpi
+# sudo pacman -S --needed acpid
+# sed -e "s;logger 'LID closed';echo -n mem > /sys/power/state;" /etc/acpi/handler.sh > /tmp/handler.sh
+# sudo mv /tmp/handler.sh /etc/acpi
 
 echo "=====> Suspend when battery is low"
 cat << EOF > /tmp/99-lowbat.rules

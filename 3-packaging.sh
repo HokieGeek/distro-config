@@ -1,9 +1,5 @@
 #!/bin/sh
 
-here=$(cd `dirname $0`; pwd)
-
-. ${here}/config.prop
-
 echo "=====> Updating pacman packages"
 cp /{etc,tmp}/pacman.conf
 sed '/#\(\[multilib\]\)/{

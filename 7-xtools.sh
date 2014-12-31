@@ -1,8 +1,8 @@
 #!/bin/sh
 
-here=$(cd `dirname $0`; pwd)
+#here=$(cd `dirname $0`; pwd)
 
-. ${here}/config.prop
+#. ${here}/config.prop
 
 myuser=$1
 
@@ -11,7 +11,7 @@ sudo pacman -S --needed xorg-server xorg-xinit xorg-utils xorg-server-utils xorg
 
 echo "=====> Installing terminals"
 sudo pacman -S --needed rxvt-unicode tmux reptyr
-cat << EOF > /etc/systemd/system/urxvtd@.service
+sudo cat << EOF > /etc/systemd/system/urxvtd@.service
 [Unit]
 Description=RXVT-Unicode Daemon
 
@@ -27,8 +27,10 @@ EOF
 sudo systemctl enable urxvtd@${myuser}.service
 sudo systemctl start urxvtd@${myuser}.service
 
-echo "=====> Installing file manager"
-sudo pacman -S --needed ranger highlight atool poppler mediainfo w3m
+exit 42
+
+#echo "=====> Installing file manager"
+#sudo pacman -S --needed ranger highlight atool poppler mediainfo w3m
 
 echo "=====> Installing video driver"
 sudo pacman -S --needed mesa xf86-video-intel lib32-intel-dri lib32-mesa-libgl
@@ -64,8 +66,7 @@ cat << EOF > ~/.xinitrc
 #!/bin/sh
 
 syndaemon -k -i 0.8 -d
-xinput -disable 'ELAN Touchscreen'
-xrandr --output \`xrandr | awk '$2~/connected/{ print $1 }'\` --auto
+xrandr --output \`xrandr | awk '\$2 ~ /connected/{ print \$1 }'\` --auto
 xsetroot -cursor_name left_ptr
 ~/.bin/rotate-wallpaper ~/.look/bgs
 exec xmonad
