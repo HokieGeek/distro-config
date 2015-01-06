@@ -69,6 +69,7 @@ syndaemon -k -i 0.8 -d
 xrandr --output \`xrandr | awk '\$2 ~ /connected/{ print \$1 }'\` --auto
 xsetroot -cursor_name left_ptr
 ~/.bin/rotate-wallpaper ~/.look/bgs
+dropbox start
 exec xmonad
 EOF
 
