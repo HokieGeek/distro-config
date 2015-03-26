@@ -49,11 +49,11 @@ sed \
     -e '/welcome_msg/{s/^#\s*//;s/Welcome.*/Hola/}' \
     -e '/shutdown_msg/{s/^#\s*//;s/The.*ing/Going to bed/}' \
     -e '/reboot_msg/{s/^#\s*//;s/The.*ing/Be right back/}' \
-    -e '/current_theme/{s/^#\s*//;s/default/rear-window,mindlock/}' \
+    -e '/current_theme/{s/^#\s*//;s/default/rear-window/}' \
+    -e '/default_user/{s/^#\s*//;s/simone/'${myuser}'/}' \
+    -e '/focus_password/{s/^#\s*//;s/no/yes/}' \
     /etc/slim.conf > /tmp/slim.conf
 echo "cursor            left_ptr" >> /tmp/slim.conf
-    #-e '/default_user/{s/^#\s*//;s/simone/'${myuser}'/}' \
-    #-e '/focus_password/{s/^#\s*//;s/no/yes/}' \
 sudo cp /tmp/slim.conf /etc/slim.conf
 sudo systemctl enable slim.service
 
