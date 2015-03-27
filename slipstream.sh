@@ -25,6 +25,7 @@ cd ${target}
 # Mount the iso to temp
 sudo mkdir ${mount}
 
+echo ":: Mount iso and making copy to ${target}/${name}"
 sudo mount -o loop ${iso} ${mount}
 rsync -vr ${mount}/* ${target}/${name}
 sudo umount ${mount}
@@ -43,7 +44,7 @@ function unsquashAndInstall {
 
     ## Unsquash
     unsquashfs -d ${unsquash_loc} ${loc}/`basename ${image}`
-    sudo mount ${unsquash_loc}/root-image.fs ${mount}
+    sudo mount ${unsquash_loc}/airootfs.img ${mount}
 
     ## Install the config files
     sudo rsync -vr\
@@ -56,9 +57,12 @@ function unsquashAndInstall {
     mksquashfs ${unsquash_loc} ${image}
 }
 
+
 # Insert into filesystems
-unsquashAndInstall ${target}/${name}/arch/x86_64/root-image.fs.sfs ${target}/64
-unsquashAndInstall ${target}/${name}/arch/i686/root-image.fs.sfs ${target}/32
+echo "\n:: Installing to 64 bit image"
+unsquashAndInstall ${target}/${name}/arch/x86_64/airootfs.sfs ${target}/64
+echo "\n:: Installing to 32 bit image"
+unsquashAndInstall ${target}/${name}/arch/i686/airootfs.sfs ${target}/32
 
 # Insert into installation directory
 rsync -vr\
@@ -68,6 +72,7 @@ rsync -vr\
 sudo rm -rf ${mount}
 
 # Now create the new iso!
+echo "\n:: Creating tne new ISO"
 mkisofs -r -V ${label} -cache-inodes -J -l \
     -b isolinux/isolinux.bin -c isolinux/boot.cat \
     -no-emul-boot -boot-load-size 4 -boot-info-table \
@@ -77,5 +82,6 @@ rm -rf ${target}
 
 # Copy to USB if the option is there
 if [ ! -z "$usb" ]; then
+    echo "\n:: DDing to usb drive at $usb"
     sudo dd bs=4M if=`dirname ${iso}`/${name}-config.iso of=$usb && sync
 fi
