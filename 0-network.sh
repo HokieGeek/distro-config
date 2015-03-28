@@ -24,8 +24,12 @@ if [ ! -z "${wireless}" ]; then
     echo "=====> Setting up wireless connection"
     ip link set dev ${wireless} up
     wifi-menu -o
+    sleep 2s
     systemctl enable netctl-auto@${wireless}.service
+    sleep 5s
     systemctl start netctl-auto@${wireless}.service
+    echo "========> Waiting for a fucking eternity for the internet connection to be created"
+    sleep 30s
 fi
 ping -c 3 www.google.com
 exit $?

@@ -6,22 +6,24 @@ mydir=$(cd `dirname $0`; pwd)
 
 . ${mydir}/config.prop
 
-echo "======> Configuring filesystem"
-${mydir}/1-fs.sh || exit 11
-# ${mydir}/1-fs.sh ${device} ${partRoot} ${partHome} ${partBoot} ${swapfile} ${swapSize} ${rootSize}
+#echo "======> Setting up networking"
+#${mydir}/0-network.sh
+# || exit 11
 
-echo "======> Setting up networking"
-${mydir}/0-network.sh
-# || exit 12
+echo "======> Configuring filesystem"
+${mydir}/1-fs.sh || exit 12
 
 echo "======> Installing base system"
-arch-chroot ${rootDir} ${mydir}/B-root-setup.sh || exit 13
+pacman -S dosfstools gummiboot -r ${rootDir}
+arch-chroot ${rootDir} /distro-config/B-root-setup.sh || exit 13
 
 echo "======> Leaving installation environment"
 echo "Rebooting in 5 seconds"
 echo "Remove install media and remember log in as '${myuser}'"
 sleep 5s
-umount -R ${rootDir}
+umount ${rootDir}/${bootDir}
+umount ${rootDir}/${homeDir}
+umount ${rootDir}
 echo "I've always been in love with you"
 sleep 0.5s
 reboot

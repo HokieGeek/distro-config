@@ -11,7 +11,7 @@ partRoot=${device}2
 partHome=${device}3
 swapfile=/swapfile
 swapSize=1024M
-rootSize=100G
+rootSize=50G
 
 vm=0
 bootloader=1

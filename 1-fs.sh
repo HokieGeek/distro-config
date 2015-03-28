@@ -9,8 +9,11 @@ fstabPath=${rootDir}/etc/fstab
 #sgdisk ${device} --zap-all
 
 echo "=====> Partition the drive(s)"
-# cgdisk ${device}
-[ "${bootloaderType}" == "bios" ] && sgdisk ${device} --new=1:2048:+1007K --typecode=1:ef02
+if [ "${bootloaderType}" == "efi" ]; then 
+    sgdisk ${device} --new=1:1M:+513M --typecode=1:ef00
+else
+    sgdisk ${device} --new=1:2048:+1007K --typecode=1:ef02
+fi
 sgdisk ${device} --new=2:0:${rootSize} --largest-new=3
 sgdisk ${device} --print
 
@@ -38,28 +41,28 @@ pacstrap ${rootDir} base base-devel
 genfstab -U -p ${rootDir} >> ${fstabPath}
 
 echo "=====> Creating swap"
-unmountedSwap=${rootDir}/${swap}
-[ ! -e ${swap} ] && fallocate -l ${swapSize} ${unmountedSwap}
+unmountedSwap=${rootDir}/${swapfile}
+[ ! -e ${swapfile} ] && fallocate -l ${swapSize} ${unmountedSwap}
 chmod 0600 ${unmountedSwap}
 mkswap ${unmountedSwap}
 swapon ${unmountedSwap}
-echo "${swap} none swap defaults 0 0" >> ${fstabPath}
+echo "${swapfile} none swap defaults 0 0" >> ${fstabPath}
 
 cat ${fstabPath}
 
 # TODO
-errors=0
-if [ $(lsblk | awk "\$1 ~ /`basename ${partRoot}`/ { print \$NF }") != ${rootDir} ]; then
-    errors=1
-    echo "ERROR: Did not mount the root partition"
-fi
-if [ $(lsblk | awk "\$1 ~ /`basename ${partHome}`/ { print \$NF }") != ${homeDir} ]; then
-    errors=1
-    echo "ERROR: Did not mount the home partition"
-fi
-if [ $errors -gt 0 ]; then
-    exit 1
-fi
+#errors=0
+#if [ $(lsblk | awk "\$1 ~ /`basename ${partRoot}`/ { print \$NF }") != ${rootDir} ]; then
+#    errors=1
+#    echo "ERROR: Did not mount the root partition"
+#fi
+#if [ $(lsblk | awk "\$1 ~ /`basename ${partHome}`/ { print \$NF }") != ${homeDir} ]; then
+#    errors=1
+#    echo "ERROR: Did not mount the home partition"
+#fi
+#if [ $errors -gt 0 ]; then
+#    exit 1
+#fi
 
 echo "=====> Installing distro-config scripts to the new system"
 cp -r ${here} ${rootDir}
