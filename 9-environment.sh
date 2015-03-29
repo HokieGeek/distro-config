@@ -9,11 +9,7 @@ sudo pacman -S --needed wget gnupg
 ssh_keys_tarball="https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg"
 ssh_keys_name=`basename ${ssh_keys_tarball}`
 mkdir ${HOME}/.ssh
-$(cd $HOME/.ssh && \
-    wget -P ${HOME}/.ssh ${ssh_keys_tarball} && \
-    gpg -d ${ssh_keys_name} | tar -xvz && rm -rf ${ssh_keys_name})
-
-#exit 42
+cd $HOME/.ssh && wget -P ${HOME}/.ssh ${ssh_keys_tarball} && gpg -d ${ssh_keys_name} | tar -xvz && rm -rf ${ssh_keys_name}
 
 echo "=====> Downloading and setting up dotfiles"
 sudo pacman -S --needed git cronie

@@ -4,6 +4,9 @@ here=$(cd `dirname $0`; pwd)
 
 . ${here}/config.prop
 
+echo "=====> Installing some user stuff"
+sudo pacman -S --needed bash-completion gvim zsh
+
 # Because: shiiiit!
 sudo mount -o remount,size=10G,noatime /tmp
 
@@ -29,22 +32,22 @@ sudo pacman -S --needed wget
 pushd . >/dev/null 2>&1
 cd /tmp
 # TODO: Only install if needed
-${here}/installAUR pa/package-query/package-query.tar.gz
-${here}/installAUR ya/yaourt/yaourt.tar.gz
+${here}/installAUR.sh pa/package-query/package-query.tar.gz
+${here}/installAUR.sh ya/yaourt/yaourt.tar.gz
 popd >/dev/null 2>&1
 
 echo "=====> Installing some user stuff"
-pacman -S --needed bash-completion gvim zsh
+sudo pacman -S --needed bash-completion gvim zsh
 
-echo "=====> Installing chromium and plugins"
-yaourt -S chromium-dev chromium-pepper-flash icedtea-web #chromium-libpdf 
-# Want to make sure that pipelight is installed *after* chromium
-#yaourt -S pipelight
+
+echo "=====> Installing browser and plugins"
+#yaourt -S --needed chromium-dev chromium-pepper-flash icedtea-web #chromium-libpdf 
+yaourt -S --needed google-chrome icedtea-web ttf-liberation
 
 echo "=====> Installing bluetooth"
-#sudo pacman -S --needed bluez bluez-utils
-#sudo systemctl start bluetooth
-#sudo systemctl enable bluetooth
+sudo pacman -S --needed bluez bluez-utils
+sudo systemctl start bluetooth
+sudo systemctl enable bluetooth
 
 echo "=====> Installing some system tools"
 sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash hdparm evince pm-utils ack the_silver_searcher dos2unix
@@ -52,14 +55,14 @@ sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
 sudo systemctl start sshd && sudo systemctl enable sshd.service
 
 echo "=====> Installing programming tools"
-yaourt -S eclipse eclipse-vrapper jslint go jdk7-openjdk ctags android-studio android-sdk-platform-tools
+yaourt -S --needed eclipse eclipse-vrapper jslint go jdk7-openjdk ctags android-studio android-sdk-platform-tools
 # TODO: arduino (the beta isn't working)
 sudo pacman -S --needed mercurial scons minicom apache-ant cmake
 
 echo "=====> Installing dropbox"
-yaourt -S dropbox dropbox-cli
-sudo systemctl enable dropbox@HokieGeek
-dropbox autostart no
+yaourt -S --needed dropbox dropbox-cli
+#sudo systemctl enable dropbox@HokieGeek
+#dropbox autostart no
 
 echo "=====> Installing firewall"
 sudo pacman -S ufw
@@ -73,11 +76,11 @@ echo "=====> Installing media tools"
 echo "======> Image and Video tools"
 sudo pacman -S --needed gimp vlc skype scrot screenfetch inkscape mplayer blender wings3d
 # GIMP ARROW PLUGIN: http://www.programmer97.talktalk.net/Files/arrow.zip
-yaourt -S libdvdread libdvdcss libdvdnav
+yaourt -S --needed libdvdread libdvdcss libdvdnav
 
 echo "======> Audio tools"
 sudo pacman -S --needed eject cdparanoia id3 abcde mpd ncmpcpp
-yaourt -S google-musicmanager
+yaourt -S --needed google-musicmanager
 mkdir ~/music
 # TODO: add music
 ln -s ~/music ~/.mpd
@@ -125,10 +128,10 @@ sudo groupadd lp
 sudo systemctl restart org.cups.cupsd.service
 
 echo "=====> Installing various useful tools"
-sudo pacman -S --needed virtualbox virtualbox-host-modules dkms playonlinux googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip deluge cdrkit lsof
+sudo pacman -S --needed virtualbox virtualbox-host-modules dkms playonlinux googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip deluge cdrkit lsof acpi
 sudo modprobe vboxdrv
 sudo updatedb
 sudo pkgfile --update
 
 echo "=====> Lastly, games!"
-yaourt -S nethack zork1 zork2 zork3 gnugo vassal
+yaourt -S --needed nethack zork1 zork2 zork3 gnugo vassal

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "installing: $0"
+
 pkg=`echo $1 | awk -F'/' '{ print $2 }'`
 
 wget https://aur.archlinux.org/packages/$1

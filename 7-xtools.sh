@@ -11,7 +11,7 @@ sudo pacman -S --needed xorg-server xorg-xinit xorg-utils xorg-server-utils xorg
 
 echo "=====> Installing terminals"
 sudo pacman -S --needed rxvt-unicode tmux reptyr
-sudo cat << EOF > /etc/systemd/system/urxvtd@.service
+cat << EOF > /tmp/urxvtd@.service
 [Unit]
 Description=RXVT-Unicode Daemon
 
@@ -24,10 +24,9 @@ ExecStart=/usr/bin/urxvtd -q -f -o
 [Install]
 WantedBy=multi-user.target
 EOF
+sudo cp /tmp/urxvtd@.service /etc/systemd/system
 sudo systemctl enable urxvtd@${myuser}.service
 sudo systemctl start urxvtd@${myuser}.service
-
-exit 42
 
 #echo "=====> Installing file manager"
 #sudo pacman -S --needed ranger highlight atool poppler mediainfo w3m

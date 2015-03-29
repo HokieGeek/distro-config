@@ -15,7 +15,7 @@ ${mydir}/1-fs.sh || exit 12
 
 echo "======> Installing base system"
 pacman -S --needed sudo dosfstools gummiboot efibootmgr iw netctl wpa_supplicant wpa_actiond dialog ifplugd -r ${rootDir}
-arch-chroot ${rootDir} /distro-config/B-root-setup.sh || exit 13
+arch-chroot ${rootDir} /distro-config/B-root-setup.sh
 
 echo "======> Leaving installation environment"
 echo "Rebooting in 5 seconds"
