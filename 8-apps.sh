@@ -10,39 +10,16 @@ sudo pacman -S --needed bash-completion gvim zsh
 # Because: shiiiit!
 sudo mount -o remount,size=10G,noatime /tmp
 
-# install yaourt
-#installAUR() {
-#    pkg=`echo $1 | awk -F'/' '{ print $2 }'`
-#
-#    wget https://aur.archlinux.org/packages/$1
-#    tar -xvzf `basename $1`
-#
-#    cd $pkg
-#
-#    makepkg -s
-#    sudo pacman -U --needed ${pkg}*.tar.xz
-#
-#    cd ..
-#
-#    rm -rf ${pkg}*
-#}
-
 echo "=====> Installing AUR helper"
 sudo pacman -S --needed wget
-pushd . >/dev/null 2>&1
-cd /tmp
+pushd /tmp >/dev/null 2>&1
 # TODO: Only install if needed
 ${here}/installAUR.sh pa/package-query/package-query.tar.gz
 ${here}/installAUR.sh ya/yaourt/yaourt.tar.gz
 popd >/dev/null 2>&1
 
-echo "=====> Installing some user stuff"
-sudo pacman -S --needed bash-completion gvim zsh
-
-
 echo "=====> Installing browser and plugins"
-#yaourt -S --needed chromium-dev chromium-pepper-flash icedtea-web #chromium-libpdf 
-yaourt -S --needed google-chrome icedtea-web ttf-liberation
+yaourt -S --needed google-chrome icedtea-web ttf-liberation ttf-google-fonts-git
 
 echo "=====> Installing bluetooth"
 sudo pacman -S --needed bluez bluez-utils
@@ -74,7 +51,7 @@ sudo ufw allow Deluge
 
 echo "=====> Installing media tools"
 echo "======> Image and Video tools"
-sudo pacman -S --needed gimp vlc skype scrot screenfetch inkscape mplayer blender wings3d
+sudo pacman -S --needed gimp vlc skype scrot screenfetch inkscape mplayer blender wings3d cheese
 # GIMP ARROW PLUGIN: http://www.programmer97.talktalk.net/Files/arrow.zip
 yaourt -S --needed libdvdread libdvdcss libdvdnav
 
