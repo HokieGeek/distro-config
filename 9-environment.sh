@@ -4,28 +4,37 @@ here=$(cd `dirname $0`; pwd)
 
 . ${here}/config.prop
 
-echo "=====> Downloading and setting up my ssh keys"
-sudo pacman -S --needed wget gnupg
-ssh_keys_tarball="https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg"
-ssh_keys_name=`basename ${ssh_keys_tarball}`
-mkdir ${HOME}/.ssh
-cd $HOME/.ssh && wget -P ${HOME}/.ssh ${ssh_keys_tarball} && gpg -d ${ssh_keys_name} | tar -xvz && rm -rf ${ssh_keys_name}
+[ "$1" != "--isagent" ] && {
+    echo "=====> Downloading and setting up my ssh keys"
+    sudo pacman -S --needed wget gnupg
+    ssh_keys_tarball="https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg"
+    ssh_keys_name=`basename ${ssh_keys_tarball}`
+    mkdir ${HOME}/.ssh
+    cd ${HOME}/.ssh && wget -P ${HOME}/.ssh ${ssh_keys_tarball} && gpg -d ${ssh_keys_name} | tar -xvz && rm -rf ${ssh_keys_name}
+
+    exec ssh-agent ${here}/`basename $0` --isagent $@
+}
+shift
+ssh-add
 
 echo "=====> Downloading and setting up dotfiles"
 sudo pacman -S --needed git cronie
-cd $HOME
-git clone https://github.com/HokieGeek/dotfiles.git
+pushd $HOME 2>&1 >/dev/null
+git clone git@github.com:HokieGeek/dotfiles.git
 git submodule update --recursive --init
 dotfiles/setup.sh
+
+pushd dotfiles/vim/bundle 2>&1 >/dev/null
+git submodule update --recursive --init
+popd 2>&1 >/dev/null
+popd 2>&1 >/dev/null
+
+# Now run some other setup scripts
 ~/.bin/publishExternalIp --cron
 ~/.bin/rotate-wallpaper ~/.look/bgs --cron
+~/.look/slim/install.sh
 sudo systemctl enable cronie.service
 sudo systemctl start cronie.service
-
-echo "=====> Enabling suspension on lid closing"
-# sudo pacman -S --needed acpid
-# sed -e "s;logger 'LID closed';echo -n mem > /sys/power/state;" /etc/acpi/handler.sh > /tmp/handler.sh
-# sudo mv /tmp/handler.sh /etc/acpi
 
 echo "=====> Suspend when battery is low"
 cat << EOF > /tmp/99-lowbat.rules
