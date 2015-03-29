@@ -4,8 +4,6 @@ mydir=$(cd `dirname $0`; pwd)
 
 . ${mydir}/config.prop
 
-#bootloaderType=$1
-
 ### EFI
 [ "${bootloaderType}" == "efi" ] && {
     echo "=====> Installing EFI bootloader"
@@ -14,17 +12,16 @@ mydir=$(cd `dirname $0`; pwd)
     #pacman -S dosfstools gummiboot
     gummiboot install
 
+    rootPartUUID=`blkid -s PARTUUID -o value ${partRoot}`
     {
         echo -e "title\t\tArch Linux"
         echo -e "linux\t\t/vmlinuz-linux"
         echo -e "initrd\t\t/initramfs-linux.img"
-        echo -e "options\t\troot=${bootDir} rw"
+        echo -e "options\t\troot=PARTUUID=${rootPartUUID} rw"
 
     } > /boot/loader/entries/arch.conf
 
-    #pacman -S --needed grub efibootmgr
-    #grub-install --target=x86_64-efi --efi-directory=/boot \
-                 #--bootloader-id=arch_grub --recheck
+    #efibootmgr -c -d ${device} -p 1 -l /EFI/gummiboot/gummibootx64.efi -L "Start this shit up"
 }
 
 

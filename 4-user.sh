@@ -1,7 +1,8 @@
 #!/bin/sh
 
-myuser=$1
-myhostname=$2
+mydir=$(cd `dirname $0`; pwd)
+
+. ${mydir}/config.prop
 
 echo "=====> Setting hostname '$myhostname'"
 echo $myhostname > /etc/hostname
@@ -10,7 +11,7 @@ echo "=====> Set root password: "
 passwd
 
 echo "=====> Creating user '$myuser'"
-pacman -S --needed sudo bash-completion gvim zsh
+pacman -S --needed bash-completion gvim zsh
 # useradd -m -g users -G wheel,storage,power,scanner,uucp -s /usr/bin/zsh ${myuser}
 useradd -m -G wheel,storage,power,scanner,uucp -s /usr/bin/zsh ${myuser}
 passwd ${myuser}

@@ -33,6 +33,9 @@ ${here}/installAUR pa/package-query/package-query.tar.gz
 ${here}/installAUR ya/yaourt/yaourt.tar.gz
 popd >/dev/null 2>&1
 
+echo "=====> Installing some user stuff"
+pacman -S --needed bash-completion gvim zsh
+
 echo "=====> Installing chromium and plugins"
 yaourt -S chromium-dev chromium-pepper-flash icedtea-web #chromium-libpdf 
 # Want to make sure that pipelight is installed *after* chromium
