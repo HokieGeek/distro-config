@@ -1,17 +1,17 @@
 #!/bin/sh
 
-#here=$(cd `dirname $0`; pwd)
+here=$(cd `dirname $0`; pwd)
 
-#. ${here}/config.prop
-
-myuser=$1
+. ${here}/config.prop
 
 echo "=====> Installing Xorg tools"
 sudo pacman -S --needed xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-twm xorg-xclock xorg-xmessage
 
 echo "=====> Installing terminals"
 sudo pacman -S --needed rxvt-unicode tmux reptyr
-cat << EOF > /tmp/urxvtd@.service
+
+echo "=====> Configuring urxvt daemon"
+sudo tee /etc/systemd/system/urxvtd@.service >/dev/null << EOF
 [Unit]
 Description=RXVT-Unicode Daemon
 
@@ -24,7 +24,6 @@ ExecStart=/usr/bin/urxvtd -q -f -o
 [Install]
 WantedBy=multi-user.target
 EOF
-sudo cp /tmp/urxvtd@.service /etc/systemd/system
 sudo systemctl enable urxvtd@${myuser}.service
 sudo systemctl start urxvtd@${myuser}.service
 
@@ -42,7 +41,9 @@ sudo pacman -S --needed xmonad xmonad-contrib dzen2 conky dmenu xcompmgr ttf-dej
 
 echo "=====> Installing login manager"
 sudo pacman -S --needed slim slim-themes archlinux-themes-slim
-sed \
+
+echo "=====> Configuring login manager"
+sudo sed -i \
     -e '/suspend_cmd/{s/^#\s*//;s:/\(suspend\):/pm-\1:}' \
     -e '/^login_cmd/{s;exec.*session;exec /bin/zsh -l ~/.xinitrc %session;}' \
     -e '/welcome_msg/{s/^#\s*//;s/Welcome.*/Hola/}' \
@@ -51,9 +52,8 @@ sed \
     -e '/current_theme/{s/^#\s*//;s/default/rear-window/}' \
     -e '/default_user/{s/^#\s*//;s/simone/'${myuser}'/}' \
     -e '/focus_password/{s/^#\s*//;s/no/yes/}' \
-    /etc/slim.conf > /tmp/slim.conf
-echo "cursor            left_ptr" >> /tmp/slim.conf
-sudo cp /tmp/slim.conf /etc/slim.conf
+    /etc/slim.conf
+echo "cursor            left_ptr" | sudo tee -a /etc/slim.conf >/dev/null
 sudo systemctl enable slim.service
 
 echo "=====> Creating zsh profile"
