@@ -17,11 +17,9 @@ mydir=$(cd `dirname $0`; pwd)
         echo -e "title\t\tArch Linux"
         echo -e "linux\t\t/vmlinuz-linux"
         echo -e "initrd\t\t/initramfs-linux.img"
-        echo -e "options\t\troot=PARTUUID=${rootPartUUID} rw"
+        echo -e "options\t\troot=PARTUUID=${rootPartUUID} rw i915.i915_enable_rc6=1 i915.i915_enable_fbc=1 i915.lvds_downclock=1 i915.semaphores=1"
 
     } > /boot/loader/entries/arch.conf
-
-    #efibootmgr -c -d ${device} -p 1 -l /EFI/gummiboot/gummibootx64.efi -L "Start this shit up"
 }
 
 
