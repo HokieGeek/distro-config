@@ -4,8 +4,7 @@ lang="en_US.UTF-8"
 loc="US/Eastern"
 
 echo "=====> Setting locale"
-cp /{etc,tmp}/locale.gen
-sed "s/#\(${lang}\)/\1/g" /tmp/locale.gen > /etc/locale.gen
+sed -i "s/#\(${lang}\)/\1/g" /etc/locale.gen
 locale-gen
 
 echo LANG=${lang} > /etc/locale.conf
