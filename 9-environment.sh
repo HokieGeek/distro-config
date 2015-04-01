@@ -36,6 +36,32 @@ popd 2>&1 >/dev/null
 sudo systemctl enable cronie.service
 sudo systemctl start cronie.service
 
+## TODO: Break this up into different scripts?
+
+echo "=====> Confuring fan controls"
+yaourt -S thinkfan lm_sensors
+
+cat << EOF > /tmp/thinkfan.conf
+sensor /sys/devices/virtual/thermal/thermal_zone0/temp
+
+(0, 0, 40)
+(1, 38, 43)
+(2, 41, 50)
+(3, 44, 50)
+(4, 51, 63)
+(5, 55, 67)
+(7, 61, 32767)
+EOF
+sudo mv /tmp/thinkfan.conf /etc
+sudo systemctl enable thinkfan
+
+echo "=====> Adjust the TrackPoint"
+cat << EOF > /tmp/10-trackpoint.rules
+SUBSYSTEM=="serio", DRIVERS=="psmouse", WAIT_FOR="speed", WAIT_FOR="sensitivity", \
+ATTR{sensitivity}="200", ATTR{speed}="180"
+EOF
+sudo mv /tmp/10-trackpoint.rules /etc/udev/rules.d
+
 echo "=====> Suspend when battery is low"
 cat << EOF > /tmp/99-lowbat.rules
 # Suspend the system when battery level drops to 2% or lower
