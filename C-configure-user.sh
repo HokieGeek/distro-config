@@ -12,6 +12,10 @@ echo "======> Updating packaging"
 ${mydir}/3-packaging.sh || exit 31
 
 echo "======> Installing user applications"
+#${mydir}/packageInstaller.?? packages
+
+#echo "======> Applying user configurations"
+#echo "======> Applying system configurations"
 ${mydir}/7-xtools.sh ${myuser} || exit 32
 ${mydir}/8-apps.sh || exit 33
 #[ ${vm} -eq 1 ] && ${mydir}/vm.sh || exit 34
