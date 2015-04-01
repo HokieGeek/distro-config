@@ -60,8 +60,10 @@ mount ${partBoot} ${unmountedBootDir}
 echo "=====> Installing base system"
 # TODO: setup mirrors
 pacstrap ${rootDir} base base-devel
+
+echo "=====> Generating fstab"
 genfstab -U -p ${rootDir} >> ${fstabPath}
-echo "${swapfile} none swap defaults 0 0" >> ${fstabPath}
+#echo "${swapfile} none swap defaults 0 0" >> ${fstabPath}
 cat ${fstabPath}
 
 # TODO
