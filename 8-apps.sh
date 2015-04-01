@@ -51,7 +51,7 @@ sudo ufw allow Deluge
 
 echo "=====> Installing media tools"
 echo "======> Image and Video tools"
-sudo pacman -S --needed gimp vlc skype scrot screenfetch inkscape mplayer blender wings3d cheese
+sudo pacman -S --needed gimp vlc skype scrot screenfetch inkscape mplayer blender wings3d cheese guvcview
 # GIMP ARROW PLUGIN: http://www.programmer97.talktalk.net/Files/arrow.zip
 yaourt -S --needed libdvdread libdvdcss libdvdnav
 
