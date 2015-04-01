@@ -17,5 +17,9 @@ ${mydir}/8-apps.sh || exit 33
 #[ ${vm} -eq 1 ] && ${mydir}/vm.sh || exit 34
 ${mydir}/9-environment.sh || exit 35
 
+echo "=====> Updating databases"
+sudo updatedb
+sudo pkgfile --update
+
 echo "Done. Starting X. Here goes nothing!"
 exec startx
