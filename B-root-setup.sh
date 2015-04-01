@@ -13,10 +13,11 @@ mkinitcpio -p linux
 echo "=====> Set root password:"
 passwd
 
-echo "======> Configuring user"
-${mydir}/4-user.sh || exit 24
+echo "=====> Installing bootloader"
+[ ${bootloader} -gt 0 ] && ${mydir}/5-boot.sh || exit 24
 
-[ ${bootloader} -gt 0 ] && ${mydir}/5-boot.sh || exit 25
+echo "======> Configuring user"
+${mydir}/4-user.sh || exit 25
 
 echo "exec /distro-config/C-configure-user.sh" > /home/${myuser}/.zprofile
 chown ${myuser}:users /home/${myuser}/.zprofile
