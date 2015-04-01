@@ -23,12 +23,18 @@ yaourt -S --needed google-chrome icedtea-web ttf-liberation ttf-google-fonts-git
 
 echo "=====> Installing bluetooth"
 sudo pacman -S --needed bluez bluez-utils
+
+echo "=====> Configuring bluetooth"
 sudo systemctl start bluetooth
 sudo systemctl enable bluetooth
 
 echo "=====> Installing some system tools"
 sudo pacman -S --needed openssh rsync gnu-netcat squashfs-tools dash hdparm evince pm-utils ack the_silver_searcher dos2unix
+
+echo "=====> Configuring shells"
 sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
+
+echo "=====> Configuring SSH"
 sudo systemctl start sshd && sudo systemctl enable sshd.service
 
 echo "=====> Installing programming tools"
@@ -38,11 +44,15 @@ sudo pacman -S --needed mercurial scons minicom apache-ant cmake
 
 echo "=====> Installing dropbox"
 yaourt -S --needed dropbox dropbox-cli
+
+#echo "=====> Configuring dropbox"
 #sudo systemctl enable dropbox@HokieGeek
 #dropbox autostart no
 
 echo "=====> Installing firewall"
 sudo pacman -S ufw
+
+echo "=====> Configuring the firewall"
 sudo ufw default deny
 sudo ufw allow 192.168.1.0/24
 sudo ufw allow SSH
@@ -58,6 +68,8 @@ yaourt -S --needed libdvdread libdvdcss libdvdnav
 echo "======> Audio tools"
 sudo pacman -S --needed eject cdparanoia id3 abcde mpd ncmpcpp
 yaourt -S --needed google-musicmanager
+
+echo "=====> Configuring MPD"
 mkdir ~/music
 # TODO: add music
 ln -s ~/music ~/.mpd
@@ -87,6 +99,8 @@ sudo systemctl start mpd.service
 echo "=====> Installing printer stuff"
 sudo pacman -S --needed cups cups-filters cups-pdf bluez-cups ghostscript gsfonts sane
 sudo pacman -S --needed hplip
+
+echo "=====> Configuring CUPS"
 sudo systemctl start org.cups.cupsd.service
 sudo systemctl enable org.cups.cupsd.service
 sudo groupadd printadmin
@@ -106,9 +120,9 @@ sudo systemctl restart org.cups.cupsd.service
 
 echo "=====> Installing various useful tools"
 sudo pacman -S --needed virtualbox virtualbox-host-modules dkms playonlinux googlecl pkgfile x11vnc colordiff lynx mlocate htop irssi xclip deluge cdrkit lsof acpi
+
+echo "=====> Configuring virtualbox"
 sudo modprobe vboxdrv
-sudo updatedb
-sudo pkgfile --update
 
 echo "=====> Lastly, games!"
 yaourt -S --needed nethack zork1 zork2 zork3 gnugo vassal
