@@ -7,9 +7,6 @@ mydir=$(cd `dirname $0`; pwd)
 echo "=====> Setting hostname '$myhostname'"
 echo $myhostname > /etc/hostname
 
-echo "=====> Set root password: "
-passwd
-
 echo "=====> Creating user '$myuser'"
 pacman -S --needed bash-completion gvim zsh
 # useradd -m -g users -G wheel,storage,power,scanner,uucp -s /usr/bin/zsh ${myuser}
@@ -29,12 +26,7 @@ chown ${myuser}:users ${userDir}/.vim
 #encfs_default --idle=1
 
 echo "=====> Giving user sudo permissions"
-# TODO: can this be scripted? figure out this next line
-#EDITOR=vim visudo +/wheel ALL=
-cp /{etc,tmp}/sudoers
-sed 's/#\s*\(%wheel\)/\1/g' /tmp/sudoers > /etc/sudoers
+sed -i 's/#\s*\(%wheel\)/\1/g' /etc/sudoers
 
 echo "=====> Allowing user to execute pm-suspend without a password"
 echo "%${myuser} ALL=(ALL) NOPASSWD: /usr/sbin/pm-suspend" >> /etc/sudoers
-
-exit 0
