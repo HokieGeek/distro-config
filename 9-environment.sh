@@ -38,8 +38,11 @@ sudo systemctl start cronie.service
 
 ## TODO: Break this up into different scripts?
 
-echo "=====> Confuring fan controls"
-yaourt -S thinkfan lm_sensors
+echo "=====> Installing CPU tools"
+yaourt -S --needed i7z-git cpupower
+
+echo "=====> Configuring fan controls"
+yaourt -S --needed thinkfan lm_sensors
 
 sudo tee /etc/thinkfan.conf > /dev/null << EOF
 sensor /sys/devices/virtual/thermal/thermal_zone0/temp
@@ -87,6 +90,3 @@ EOF
 # Enable Audio codec power management
 # sudo echo 1 > /sys/module/snd_hda_intel/parameters/power_save
 # sudo echo 0 > /proc/sys/kernel/nmi_watchdog
-
-#echo "=====> Installing SD Card driver"
-#http://www.realtek.com.tw/DOWNLOADS/RedirectFTPSite.aspx?SiteID=1&DownTypeID=3&DownID=951&PFid=25&Conn=3&FTPPath=ftp%3a%2f%2f208.70.202.219%2fpc%2fcrc%2frts_pstor.tar.bz2
