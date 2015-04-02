@@ -1,10 +1,12 @@
 acpi
 i7z-git
 cpupower
-#powertop
+powertop
 thinkfan
 #thinkfinger
 lm_sensors
 dkms
-#hdparm
+rfkill
+ethtool
+hdparm
 #pm-utils
