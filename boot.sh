@@ -2,13 +2,12 @@
 
 mydir=$(cd `dirname $0`; pwd)
 
-. ${mydir}/config.prop
+. ${mydir}/configuration/config.prop
 
 ### EFI
 [ "${bootloaderType}" == "efi" ] && {
     echo "=====> Installing EFI bootloader"
 
-    #pacman -S dosfstools gummiboot
     gummiboot install
 
     rootPartUUID=`blkid -s PARTUUID -o value ${partRoot}`
@@ -26,7 +25,6 @@ mydir=$(cd `dirname $0`; pwd)
 ### i386
 [ "${bootloaderType}" == "bios" ] && {
     echo "=====> Installing BIOS bootloader"
-    pacman -S --needed grub-bios os-prober
     grub-install --target=i386-pc --recheck /dev/sda
 
     cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo

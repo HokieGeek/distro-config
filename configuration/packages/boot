@@ -1,5 +1,6 @@
 dosfstools
 gummiboot
+efibootmgr
 #grub-bios
 #os-prober
 

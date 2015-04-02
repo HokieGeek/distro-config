@@ -2,7 +2,7 @@
 
 here=$(cd `dirname $0`; pwd)
 
-. ${here}/config.prop
+. ${here}/configuration/config.prop
 
 fstabPath=${rootDir}/etc/fstab
 

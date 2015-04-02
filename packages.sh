@@ -11,9 +11,9 @@ s/#\(.*\)/\1/;
 }' /etc/pacman.conf
 sudo pacman -Sy
 
-echo "=====> Installing AUR helper"
-pushd /tmp >/dev/null 2>&1
-# TODO: Only install if needed
-${here}/installAUR.sh pa/package-query/package-query.tar.gz
-${here}/installAUR.sh ya/yaourt/yaourt.tar.gz
-popd >/dev/null 2>&1
+echo "======> Installing packages"
+# Because: shiiiit!
+sudo mount -o remount,size=10G,noatime /tmp
+
+${here}/packageInstaller.sh ${here}/configuration/packages
+# TODO

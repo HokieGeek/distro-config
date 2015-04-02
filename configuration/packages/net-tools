@@ -1,3 +1,9 @@
+iw
+netctl
+wpa_supplicant
+wpa_actiond
+dialog
+ifplugd
 openssh
 rsync
 deluge
