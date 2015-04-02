@@ -3,6 +3,7 @@ i7z-git
 cpupower
 #powertop
 thinkfan
+#thinkfinger
 lm_sensors
 dkms
 #hdparm
