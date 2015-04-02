@@ -1,0 +1,9 @@
+acpi
+i7z-git
+cpupower
+#powertop
+thinkfan
+lm_sensors
+dkms
+#hdparm
+#pm-utils

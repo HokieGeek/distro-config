@@ -1,0 +1,4 @@
+mesa
+xf86-video-intel
+lib32-intel-dri
+lib32-mesa-libgl
