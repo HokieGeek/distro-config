@@ -4,12 +4,6 @@ here=$(cd `dirname $0`; pwd)
 
 . ${here}/config.prop
 
-echo "=====> Installing Xorg tools"
-sudo pacman -S --needed xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-twm xorg-xclock xorg-xmessage
-
-echo "=====> Installing terminals"
-sudo pacman -S --needed rxvt-unicode tmux reptyr
-
 echo "=====> Configuring urxvt daemon"
 sudo tee /etc/systemd/system/urxvtd@.service >/dev/null << EOF
 [Unit]
@@ -26,21 +20,6 @@ WantedBy=multi-user.target
 EOF
 sudo systemctl enable urxvtd@${myuser}.service
 sudo systemctl start urxvtd@${myuser}.service
-
-#echo "=====> Installing file manager"
-#sudo pacman -S --needed ranger highlight atool poppler mediainfo w3m
-
-echo "=====> Installing video driver"
-sudo pacman -S --needed mesa xf86-video-intel lib32-intel-dri lib32-mesa-libgl
-
-echo "=====> Installing audio mixer and touchpad driver"
-sudo pacman -S --needed alsa-utils xf86-input-synaptics
-
-echo "=====> Installing window manager"
-sudo pacman -S --needed xmonad xmonad-contrib dzen2 conky dmenu xcompmgr ttf-dejavu terminus-font feh
-
-echo "=====> Installing login manager"
-sudo pacman -S --needed slim slim-themes archlinux-themes-slim
 
 echo "=====> Configuring login manager"
 sudo sed -i \

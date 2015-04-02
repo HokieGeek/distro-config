@@ -8,6 +8,9 @@ echo "======> Setting up the network"
 sudo ${mydir}/0-network.sh
 #|| exit 30
 
+# Because: shiiiit!
+sudo mount -o remount,size=10G,noatime /tmp
+
 echo "======> Updating packaging"
 ${mydir}/3-packaging.sh || exit 31
 

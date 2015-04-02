@@ -7,11 +7,16 @@ mydir=$(cd `dirname $0`; pwd)
 echo "=====> Setting up locale info"
 . ${mydir}/2-locale.sh || exit 22
 
+###########################################
 echo "=====> Create a new initial RAM disk"
 mkinitcpio -p linux
 
 echo "=====> Set root password:"
 passwd
+
+echo "=====> Setting hostname '$myhostname'"
+echo $myhostname > /etc/hostname
+###########################################
 
 echo "=====> Installing bootloader"
 [ ${bootloader} -gt 0 ] && ${mydir}/5-boot.sh || exit 24

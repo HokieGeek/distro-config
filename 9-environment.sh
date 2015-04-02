@@ -6,7 +6,6 @@ here=$(cd `dirname $0`; pwd)
 
 [ "$1" != "--isagent" ] && {
     echo "=====> Downloading and setting up my ssh keys"
-    sudo pacman -S --needed wget gnupg
     ssh_keys_tarball="https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg"
     ssh_keys_name=`basename ${ssh_keys_tarball}`
     mkdir ${HOME}/.ssh
@@ -18,7 +17,6 @@ shift
 ssh-add
 
 echo "=====> Downloading and setting up dotfiles"
-sudo pacman -S --needed git cronie
 pushd $HOME 2>&1 >/dev/null
 git clone git@github.com:HokieGeek/dotfiles.git
 git submodule update --recursive --init
@@ -38,12 +36,7 @@ sudo systemctl start cronie.service
 
 ## TODO: Break this up into different scripts?
 
-echo "=====> Installing CPU tools"
-yaourt -S --needed i7z-git cpupower
-
 echo "=====> Configuring fan controls"
-yaourt -S --needed thinkfan lm_sensors
-
 sudo tee /etc/thinkfan.conf > /dev/null << EOF
 sensor /sys/devices/virtual/thermal/thermal_zone0/temp
 

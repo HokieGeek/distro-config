@@ -7,7 +7,6 @@ mydir=$(cd `dirname $0`; pwd)
 ### EFI
 [ "${bootloaderType}" == "efi" ] && {
     echo "=====> Installing EFI bootloader"
-    #mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 
     #pacman -S dosfstools gummiboot
     gummiboot install
@@ -18,6 +17,7 @@ mydir=$(cd `dirname $0`; pwd)
         echo -e "linux\t\t/vmlinuz-linux"
         echo -e "initrd\t\t/initramfs-linux.img"
         echo -e "options\t\troot=PARTUUID=${rootPartUUID} rw i915.i915_enable_rc6=1 i915.i915_enable_fbc=1 i915.lvds_downclock=1 i915.semaphores=1"
+        # echo -e "options\t\troot=PARTUUID=${rootPartUUID} rw"
 
     } > /boot/loader/entries/arch.conf
 }

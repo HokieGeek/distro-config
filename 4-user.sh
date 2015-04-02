@@ -4,11 +4,7 @@ mydir=$(cd `dirname $0`; pwd)
 
 . ${mydir}/config.prop
 
-echo "=====> Setting hostname '$myhostname'"
-echo $myhostname > /etc/hostname
-
 echo "=====> Creating user '$myuser'"
-pacman -S --needed bash-completion gvim zsh
 # useradd -m -g users -G wheel,storage,power,scanner,uucp -s /usr/bin/zsh ${myuser}
 useradd -m -G wheel,storage,power,scanner,uucp -s /usr/bin/zsh ${myuser}
 passwd ${myuser}

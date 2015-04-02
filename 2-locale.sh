@@ -1,7 +1,8 @@
 #!/bin/sh
 
-lang="en_US.UTF-8"
-loc="US/Eastern"
+here=$(cd `dirname $0`; pwd)
+
+. ${here}/config.prop
 
 echo "=====> Setting locale"
 sed -i "s/#\(${lang}\)/\1/g" /etc/locale.gen
