@@ -4,19 +4,22 @@ here=$(cd `dirname $0`; pwd)
 
 . ${here}/config.prop
 
+echo "======> Kernel modules"
+echo "loop" | sudo tee -a /etc/modules-load.d/modules.conf >/dev/null
+echo "vboxdrv" | sudo tee -a /etc/modules-load.d/virtualbox.conf >/dev/null
+
 #echo "=====> Configuring dropbox"
 #sudo systemctl enable dropbox@HokieGeek
 #dropbox autostart no
 
-echo "=====> Configuring bluetooth"
-sudo systemctl start bluetooth
-sudo systemctl enable bluetooth
-
 echo "=====> Configuring shells"
-sudo rm -rf /bin/sh && sudo ln -s dash /bin/sh
+sudo rm -rf /bin/sh
+sudo ln -s dash /bin/sh
 
 echo "=====> Configuring SSH"
-sudo systemctl start sshd && sudo systemctl enable sshd.service
+sudo systemctl start sshd
+sudo systemctl enable sshd.service
+
 echo "=====> Configuring the firewall"
 sudo ufw default deny
 sudo ufw allow 192.168.1.0/24
