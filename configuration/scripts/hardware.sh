@@ -4,6 +4,10 @@ here=$(cd `dirname $0`; pwd)
 
 . ${here}/config.prop
 
+# echo "=====> Change filesystem to noatime for SSDs"
+# TODO: needs to be smarter so that it only does this with / and /home
+# sudo sed -i 's/relatime/noatime/g' /etc/fstab
+
 echo "=====> Configuring bluetooth"
 sudo systemctl start bluetooth
 sudo systemctl enable bluetooth
@@ -49,9 +53,3 @@ SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="2", RUN
 SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="1", RUN+="/usr/bin/systemctl suspend"
 SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="0", RUN+="/usr/bin/systemctl suspend"
 EOF
-
-# echo "=====> Setting various power settings"
-## These settings were suggested when running powertop command
-# Enable Audio codec power management
-# sudo echo 1 > /sys/module/snd_hda_intel/parameters/power_save
-# sudo echo 0 > /proc/sys/kernel/nmi_watchdog
