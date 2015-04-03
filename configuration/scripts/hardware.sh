@@ -9,22 +9,25 @@ here=$(cd `dirname $0`; pwd)
 # sudo sed -i 's/relatime/noatime/g' /etc/fstab
 
 echo "=====> Configuring bluetooth"
-sudo systemctl start bluetooth
 sudo systemctl enable bluetooth
+sudo systemctl start bluetooth
 
 echo "=====> Configuring fan controls"
 sudo tee /etc/thinkfan.conf > /dev/null << EOF
-sensor /sys/devices/virtual/thermal/thermal_zone0/temp
+hwmon /sys/devices/virtual/thermal/thermal_zone0/temp
 
-(0, 0, 40)
-(1, 38, 43)
-(2, 41, 50)
-(3, 44, 50)
-(4, 51, 63)
-(5, 55, 67)
-(7, 61, 32767)
+(0, 0, 42)
+(1, 40, 47)
+(2, 45, 52)
+(3, 50, 57)
+(4, 55, 62)
+(5, 60, 67)
+(6, 65, 72)
+(7, 70, 77)
+(127, 75, 32767)
 EOF
 sudo systemctl enable thinkfan
+sudo systemctl start thinkfan
 
 echo "=====> Configure the TrackPoint"
 sudo tee /etc/udev/rules.d/10-trackpoint.rules > /dev/null << EOF
