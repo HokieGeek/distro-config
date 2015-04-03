@@ -2,7 +2,7 @@
 
 here=$(cd `dirname $0`; pwd)
 
-. ${here}/config.prop
+. ${here}/../config.prop
 
 # echo "=====> Change filesystem to noatime for SSDs"
 # TODO: needs to be smarter so that it only does this with / and /home
@@ -23,12 +23,23 @@ here=$(cd `dirname $0`; pwd)
 #
 #/swapfile       	none      	swap      	defaults  	0 0
 
+# TODO: only do these next two if SSD set in config file
+echo "=====> Setting disk I/O scheduler for SSDs"
+# TODO: less dumb?
+# echo 'ACTION=="add|change", KERNEL=="'${device}', ATTR{queue/rotational}
+sudo tee /etc/udev/rules.d/60-schedulers.rules > /dev/null << EOF
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/schduler}="noop"
+EOF
+
+echo "=====> Setting swapiness to a low value"
+echo "vm.swappiness=10" | sudo tee /etc/sysctl.d/99-sysctl.conf >/dev/null
+
 echo "=====> Configuring bluetooth"
 sudo systemctl enable bluetooth
 sudo systemctl start bluetooth
 
 echo "=====> Configuring fan controls"
-sudo tee /etc/thinkfan.conf > /dev/null << EOF
+sudo tee /etc/thinkfan.conf >/dev/null << EOF
 hwmon /sys/devices/virtual/thermal/thermal_zone0/temp
 
 (0, 0, 42)
