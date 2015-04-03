@@ -8,6 +8,21 @@ here=$(cd `dirname $0`; pwd)
 # TODO: needs to be smarter so that it only does this with / and /home
 # sudo sed -i 's/relatime/noatime/g' /etc/fstab
 
+## 
+## /etc/fstab: static file system information
+##
+## <file system>	<dir>	<type>	<options>	<dump>	<pass>
+## /dev/sda2
+#UUID=4fd734f4-0bc9-4f0f-b696-0f5f398880d6	/         	ext4      	rw,noatime,data=ordered	0 1
+#
+## /dev/sda3
+#UUID=2df1cf7b-5dc4-45ed-8292-f8608a4454f7	/home     	ext4      	rw,noatime,data=ordered	0 2
+#
+## /dev/sda1
+#UUID=413A-A44D      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro	0 2
+#
+#/swapfile       	none      	swap      	defaults  	0 0
+
 echo "=====> Configuring bluetooth"
 sudo systemctl enable bluetooth
 sudo systemctl start bluetooth
