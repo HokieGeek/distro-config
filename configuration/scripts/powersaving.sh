@@ -37,6 +37,3 @@ echo "====> Enabling power control for pci devices"
 sudo tee /etc/udev/rules.d/50-pci_pm.rules >/dev/null <<EOF
 ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
 EOF
-#for dev in `lspci | awk '$1 ~ /^00/ { print $1 }'`; do
-#    echo 'auto' | sudo tee /sys/bus/pci/devices/0000:${dev}/power/control >/dev/null
-#done
