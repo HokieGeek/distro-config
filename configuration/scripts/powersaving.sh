@@ -37,3 +37,9 @@ echo "====> Enabling power control for pci devices"
 sudo tee /etc/udev/rules.d/50-pci_pm.rules >/dev/null <<EOF
 ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
 EOF
+
+#echo "=====> Reducing backlight when not plugged in"
+#sudo tee /etc/udev/rules.d/99-backlight.rules > /dev/null << EOF
+#SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="/usr/bin/xbacklight -set 40"
+#SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="/usr/bin/xbacklight -set 100"
+#EOF
