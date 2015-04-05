@@ -1,4 +1,6 @@
 alsa-utils
+apulse
+lib32-apulse
 cdparanoia
 id3
 abcde
