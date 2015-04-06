@@ -38,8 +38,15 @@ sudo tee /etc/udev/rules.d/50-pci_pm.rules >/dev/null <<EOF
 ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
 EOF
 
-#echo "=====> Reducing backlight when not plugged in"
-#sudo tee /etc/udev/rules.d/99-backlight.rules > /dev/null << EOF
-#SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="/usr/bin/xbacklight -set 40"
-#SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="/usr/bin/xbacklight -set 100"
-#EOF
+echo "=====> Reduce backlight when not plugged in"
+sudo tee /etc/udev/rules.d/80-backlight.rules >/dev/null << EOF
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="0", RUN+="/usr/local/bin/backlight BAT"
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", RUN+="/usr/local/bin/backlight AC"
+EOF
+
+echo "=====> Scale down the CPU frequency when not plugged in"
+sudo tee -a /etc/udev/rules.d/99-cpuscaling >/dev/null << EOF
+# If battery on battery, use powersave governor. Otherwise, performance, baby!
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="0", RUN+="/usr/bin/cpupower frequency-set -g powersave"
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", RUN+="/usr/bin/cpupower frequency-set -g performance"
+EOF

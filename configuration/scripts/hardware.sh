@@ -59,7 +59,7 @@ EndSection
 EOF
 
 echo "=====> Suspend when battery is low"
-sudo tee /etc/udev/rules.d/99-lowbat.rules > /dev/null << EOF
+sudo tee /etc/udev/rules.d/99-lowbat.rules >/dev/null << EOF
 # Suspend the system when battery level drops to 2% or lower
 SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="2", RUN+="/usr/bin/systemctl suspend"
 SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="1", RUN+="/usr/bin/systemctl suspend"
