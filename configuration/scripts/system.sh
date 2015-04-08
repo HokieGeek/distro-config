@@ -23,6 +23,7 @@ sudo systemctl enable sshd.service
 echo "=====> Setting Google DNS"
 sudo tee /etc/resolv.conf > /dev/null << EOF
 # Using Google DNS because it's faster
+domain home
 nameserver 8.8.8.8
 nameserver 8.8.4.4
 EOF
