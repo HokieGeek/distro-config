@@ -4,6 +4,9 @@ here=$(cd `dirname $0`; pwd)
 
 . ${here}/../config.prop
 
+# echo "=====> Configuring printer"
+# sudo hp-setup -i
+
 # TODO: SDD-only {begin}
 echo "=====> Change filesystem to noatime for SSDs"
 awk '$2 ~ /^\/(home)?$/ { sub(/relatime/, "noatime") } { print }' /etc/fstab > /tmp/fstab && sudo mv /tmp/fstab /etc
