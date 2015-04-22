@@ -5,3 +5,6 @@ xorg-server-utils
 xorg-twm
 xorg-xclock
 xorg-xmessage
+xlockmore
+slock
+xautolock
