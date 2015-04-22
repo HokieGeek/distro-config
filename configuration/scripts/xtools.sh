@@ -43,6 +43,7 @@ echo "=====> Creating xinitrc"
 cat << EOF > ~/.xinitrc
 #!/bin/sh
 
+#/usr/X11R6/bin/xautolock -time 10 -locker slock -secure -detectsleep
 syndaemon -k -i 0.8 -d
 xrandr --output \`xrandr | awk '\$2 ~ /connected/{ print \$1 }'\` --auto
 xsetroot -cursor_name left_ptr
