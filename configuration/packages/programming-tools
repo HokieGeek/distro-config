@@ -14,3 +14,4 @@ scons
 minicom
 apache-ant
 cmake
+python-pip
