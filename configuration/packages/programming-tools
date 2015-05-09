@@ -16,3 +16,4 @@ apache-ant
 cmake
 python-pip
 apache
+cloc
