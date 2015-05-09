@@ -23,7 +23,7 @@ for dir in ${directories}; do
 
     # Install all other packages
     echo "====> Installing all packages"
-    for file in `ls -1 | grep -v .aur`; do
+    for file in `ls -1 | grep -v .aur | grep -v .pkgbuild`; do
         if [ "${file:0:1}" == "-" ]; then
             echo ":: Skipping: ${file:1}"
         else
@@ -31,6 +31,16 @@ for dir in ${directories}; do
             ${installer} -S --needed `cat ${file} | egrep -v '^#' | xargs` -r ${rootMnt}
         fi
     end
+
+    # Install my packages
+    #echo "====> Rolling my own packages"
+    #for file in `ls -1 | grep .pkgbuild`; do
+    #    pushd <TEMP>
+    #    cp $file PKGBUILD
+    #    makepkg -s
+    #    sudo pacman -U --needed *.pkg.tar.xz
+    #    popd
+    #end
 
     popd >/dev/null 2>&1
 end
