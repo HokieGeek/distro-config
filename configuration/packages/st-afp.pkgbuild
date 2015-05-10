@@ -31,7 +31,7 @@ prepare() {
         -i config.mk
     sed \
         -e '/char font/s/".*"/"DejaVu Sans Mono:size=12"/' \
-        -e '/char shell/s;".*";"/bin/zsh";' \
+        -e '/char shell/s;".*";"/usr/bin/tmux";' \
         -i config.def.h
 }
 
