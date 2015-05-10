@@ -4,23 +4,6 @@ here=$(cd `dirname $0`; pwd)
 
 . ${here}/config.prop
 
-echo "=====> Configuring urxvt daemon"
-sudo tee /etc/systemd/system/urxvtd@.service >/dev/null << EOF
-[Unit]
-Description=RXVT-Unicode Daemon
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-User=%i
-ExecStart=/usr/bin/urxvtd -q -f -o
-
-[Install]
-WantedBy=multi-user.target
-EOF
-sudo systemctl enable urxvtd@${myuser}.service
-sudo systemctl start urxvtd@${myuser}.service
-
 echo "=====> Configuring login manager"
 sudo sed -i \
     -e '/suspend_cmd/{s/^#\s*//;s:/\(suspend\):/pm-\1:}' \
