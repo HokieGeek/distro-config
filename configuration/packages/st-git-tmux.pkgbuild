@@ -1,6 +1,6 @@
 # Maintainer: Andres Perez <andres.f.perez@gmail.com>
 
-pkgname=st-afp
+pkgname=st-git-tmux
 _pkgname=st
 epoch=1
 pkgver=0
