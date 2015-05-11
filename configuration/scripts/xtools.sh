@@ -4,21 +4,7 @@ here=$(cd `dirname $0`; pwd)
 
 . ${here}/config.prop
 
-echo "=====> Configuring login manager"
-sudo sed -i \
-    -e '/suspend_cmd/{s/^#\s*//;s:/\(suspend\):/pm-\1:}' \
-    -e '/^login_cmd/{s;exec.*session;exec /bin/zsh -l ~/.xinitrc %session;}' \
-    -e '/welcome_msg/{s/^#\s*//;s/Welcome.*/Hola/}' \
-    -e '/shutdown_msg/{s/^#\s*//;s/The.*ing/Going to bed/}' \
-    -e '/reboot_msg/{s/^#\s*//;s/The.*ing/Be right back/}' \
-    -e '/current_theme/{s/^#\s*//;s/default/rear-window/}' \
-    -e '/default_user/{s/^#\s*//;s/simone/'${myuser}'/}' \
-    -e '/focus_password/{s/^#\s*//;s/no/yes/}' \
-    /etc/slim.conf
-echo "cursor            left_ptr" | sudo tee -a /etc/slim.conf >/dev/null
-sudo systemctl enable slim.service
-
-echo "=====> Creating shell profiles"
+echo "=====> Creating shell profiles to start X"
 echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > $HOME/.bash_profile
 echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > $HOME/.zlogin
 
