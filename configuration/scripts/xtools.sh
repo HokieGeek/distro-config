@@ -18,9 +18,9 @@ sudo sed -i \
 echo "cursor            left_ptr" | sudo tee -a /etc/slim.conf >/dev/null
 sudo systemctl enable slim.service
 
-echo "=====> Creating zsh profile"
-# echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec ssh-agent startx' > $HOME/.zprofile
-echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > $HOME/.zprofile
+echo "=====> Creating shell profiles"
+echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > $HOME/.bash_profile
+echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx' > $HOME/.zlogin
 
 echo "=====> Creating xinitrc"
 cat << EOF > ~/.xinitrc
