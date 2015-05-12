@@ -9,8 +9,9 @@ echo "loop" | sudo tee -a /etc/modules-load.d/modules.conf >/dev/null
 echo "vboxdrv" | sudo tee -a /etc/modules-load.d/virtualbox.conf >/dev/null
 
 #echo "=====> Configuring dropbox"
-#sudo systemctl enable dropbox@HokieGeek
-#dropbox autostart no
+#sudo systemctl enable dropbox@andres
+#dropbox-cli start
+#dropbox-cli autostart
 
 echo "=====> Configuring shells"
 sudo rm -rf /bin/sh
@@ -58,9 +59,9 @@ ln -s ~/music ~/.mpd
     #format      "44100:16:2"
 #}
 #EOF
-sudo mv /tmp/mpd.conf /etc/mpd.conf
-sudo systemctl enable mpd.service
-sudo systemctl start mpd.service
+#sudo mv /tmp/mpd.conf /etc/mpd.conf
+#sudo systemctl enable mpd.service
+#sudo systemctl start mpd.service
 
 echo "=====> Configuring CUPS"
 sudo systemctl start org.cups.cupsd.service
