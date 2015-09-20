@@ -26,11 +26,11 @@ EOF
 echo "====> Increasing virtual memory writeback timeout"
 echo "vm.dirty_writeback_centisecs = 1500" | sudo tee /etc/sysctl.d/dirty.conf >/dev/null
 
-echo "====> Enabling USB autosuspend"
-sudo tee /etc/udev/rules.d/50-usb_power_save.rules >/dev/null << EOF
-# If USB devices are failing, go to https://wiki.archlinux.org/index.php/Power_saving#USB_autosuspend
-ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
-EOF
+#echo "====> Enabling USB autosuspend"
+#sudo tee /etc/udev/rules.d/50-usb_power_save.rules >/dev/null << EOF
+## If USB devices are failing, go to https://wiki.archlinux.org/index.php/Power_saving#USB_autosuspend
+#ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
+#EOF
 
 echo "====> Enabling power control for pci devices"
 # TODO: is 50 ok?
