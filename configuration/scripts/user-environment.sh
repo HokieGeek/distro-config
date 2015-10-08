@@ -33,3 +33,6 @@ popd 2>&1 >/dev/null
 ~/.look/slim/install.sh
 sudo systemctl enable cronie.service
 sudo systemctl start cronie.service
+
+echo "=====> Adding user to various groups"
+gpasswd -a 
