@@ -36,3 +36,6 @@ sudo systemctl start cronie.service
 
 echo "=====> Adding user to various groups"
 gpasswd -a 
+
+echo "=====> Configuring neovim"
+sudo pip install neovim
