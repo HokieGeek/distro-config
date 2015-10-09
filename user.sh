@@ -6,7 +6,7 @@ mydir=$(cd `dirname $0`; pwd)
 
 echo "=====> Creating user '$myuser'"
 # useradd -m -g users -G wheel,storage,power,scanner,uucp -s /usr/bin/zsh ${myuser}
-useradd -m -G wheel,storage,power,scanner,uucp -s /usr/bin/zsh ${myuser}
+useradd -m -G wheel,storage,power,scanner,uucp,lock,docker,lp,printadmin -s /usr/bin/zsh ${myuser}
 passwd ${myuser}
 mkdir ${userDir}/.vim
 chown ${myuser}:users ${userDir}/.vim
