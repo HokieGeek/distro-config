@@ -22,4 +22,5 @@ avr-gcc
 avr-libc
 picocom
 ols
+lib32-libusb-compat
 strace
