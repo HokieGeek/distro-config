@@ -73,3 +73,9 @@ echo "=====> Add rule to specify nicer dev for the bus pirate"
 sudo tee /etc/udev/rules.d/98-buspirate.rules >/dev/null << EOF
 SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", GROUP="users", MODE="0666", SYMLINK+="buspirate"
 EOF
+
+echo "=====> Add rule to specify nicer dev for the Open Logic Sniffer"
+sudo tee /etc/udev/rules.d/98-openlogicsniffer.rules >/dev/null << EOF
+ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="fc92", MODE="0666", SYMLINK+="ols"
+EOF
+
