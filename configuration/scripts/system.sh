@@ -81,8 +81,8 @@ sudo groupadd lp
 
 sudo systemctl restart org.cups.cupsd.service
 
-# echo "=====> Configuring virtualbox"
-# sudo modprobe vboxdrv
+echo "=====> Configuring virtualbox"
+sudo vboxreload
 
 echo "=====> Add service that assures wifi restarts after resume"
 sudo tee /etc/systemd/system/netctl-auto-resume@.service > /dev/null << EOF
