@@ -100,3 +100,10 @@ echo "=====> Add udev rules for my pok3r"
 sudo tee /etc/udev/rules.d/97-pok3r.rules >/dev/null << EOF
 SUBSYSTEM=="usb", ATTRS{idProduct}=="0141", ATTRS{idVendor}=="04d9", GROUP="users", MODE="0666", SYMLINK+="pok3r"
 EOF
+
+echo "=====> Battery functions and calibration"
+sudo systemctl disable systemd-rfkill.service
+sudo systemctl enable tlp.service
+sudo systemctl enable tlp-sleep.service
+# sudo powertop --calibrate
+# sudo powertop --auto-tune

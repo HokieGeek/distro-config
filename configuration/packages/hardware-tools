@@ -10,3 +10,5 @@ rfkill
 ethtool
 hdparm
 #pm-utils
+tlp
+acpi_call
