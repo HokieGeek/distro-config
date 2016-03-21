@@ -29,7 +29,10 @@ echo "vm.dirty_writeback_centisecs = 1500" | sudo tee /etc/sysctl.d/dirty.conf >
 #echo "====> Enabling USB autosuspend"
 #sudo tee /etc/udev/rules.d/50-usb_power_save.rules >/dev/null << EOF
 ## If USB devices are failing, go to https://wiki.archlinux.org/index.php/Power_saving#USB_autosuspend
+## Also, you can turn it off with the following command (plus check powertop's suggestion):
+##      echo 'on' > /sys/bus/usb/devices/2-2/power/control
 #ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
+#LABEL="power_usb_rules_end"
 #EOF
 
 echo "====> Enabling power control for pci devices"
