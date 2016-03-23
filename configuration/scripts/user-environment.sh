@@ -6,10 +6,7 @@ here=$(cd `dirname $0`; pwd)
 
 [ "$1" != "--isagent" ] && {
     echo "=====> Downloading and setting up my ssh keys"
-    ssh_keys_tarball="https://www.dropbox.com/s/24pg53g5onstqut/ssh-keys.tgz.gpg"
-    ssh_keys_name=`basename ${ssh_keys_tarball}`
-    mkdir ${HOME}/.ssh
-    cd ${HOME}/.ssh && wget -P ${HOME}/.ssh ${ssh_keys_tarball} && gpg -d ${ssh_keys_name} | tar -xvz && rm -rf ${ssh_keys_name}
+    curl https://gist.githubusercontent.com/HokieGeek/ed79a96fa8843615689d/raw/0938eb72cc167ec3f26dcde78869207f28c47440/install-ssh-keys.sh | /bin/bash
 
     exec ssh-agent ${here}/`basename $0` --isagent $@
 }
@@ -17,15 +14,7 @@ shift
 ssh-add
 
 echo "=====> Downloading and setting up dotfiles"
-pushd $HOME 2>&1 >/dev/null
-git clone git@github.com:HokieGeek/dotfiles.git
-git submodule update --recursive --init
-dotfiles/setup.sh
-
-pushd dotfiles/vim/bundle 2>&1 >/dev/null
-git submodule update --recursive --init
-popd 2>&1 >/dev/null
-popd 2>&1 >/dev/null
+curl https://gist.githubusercontent.com/HokieGeek/ee51363e1e73ac971e85/raw/95357854ed13fed3d53c313d6bc487519fe84290/install-dotfiles.sh | /bin/bash
 
 # Now run some other setup scripts
 ~/.bin/publishExternalIp --cron
