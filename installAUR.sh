@@ -1,4 +1,5 @@
 #!/bin/sh
+set -x
 
 pkg=`echo $1 | awk -F'/' '{ print $2 }'`
 
