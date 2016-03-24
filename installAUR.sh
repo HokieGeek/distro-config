@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x
 
-pkg=`echo $1 | awk -F'/' '{ print $2 }'`
+pkg=`echo $1 | sed 's/.git//'`
 
 pushd /tmp >/dev/null 3>&1
 # wget https://aur.archlinux.org/packages/$1
@@ -16,6 +16,6 @@ makepkg -sri
 
 popd >/dev/null 2>&1
 
-rm -rf ${pkg}*
+rm -rf ${pkg}
 
 popd >/dev/null 2>&1
