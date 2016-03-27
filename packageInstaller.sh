@@ -43,9 +43,7 @@ for dir in ${directories}; do
         cp ${file} ${pkgDir}/PKGBUILD
         pushd ${pkgDir}
         namcap PKGBUILD
-        makepkg -s
-        # sudo pacman -U --needed *.pkg.tar.xz
-        ${installer} -U --needed *.pkg.tar.xz -r ${rootMnt}
+        makepkg -sri
         popd
     done
     rm -rf ${tempDir}

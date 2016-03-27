@@ -24,4 +24,3 @@ EOF
 echo "=====> Fix error with non-parenting WM and Java"
 # See: https://wiki.archlinux.org/index.php/Java#Applications_not_resizing_with_WM.2C_menus_immediately_closing
 sudo echo "export _JAVA_AWT_WM_NONREPARENTING=1" >> /etc/profile.d/jre.sh
-
