@@ -1,9 +1,9 @@
 # Maintainer: Andres Perez <andres.f.perez@gmail.com>
 
-pkgname=st-tmux-git
+pkgname=st-hg-git
 _pkgname=st
 epoch=1
-pkgver=0
+pkgver=20160309.3996461
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
@@ -22,14 +22,10 @@ pkgver() {
     git log -1 --format='%cd.%h' --date=short | tr -d -
 }
 
-# downloadPatches() {
-#     cd "${srcdir}"
-#     curl -O "http://st.suckless.org/patches/st-git-20160131-argbbg.diff"
-# }
-
 prepare() {
     local file
-    cd "${srcdir}/${_pkgname}"
+    pushd "${srcdir}/${_pkgname}"
+
     sed \
         -e 's/CPPFLAGS =/CPPFLAGS +=/g' \
         -e 's/CFLAGS =/CFLAGS +=/g' \
@@ -38,29 +34,30 @@ prepare() {
     sed \
         -e '/char font/s/".*"/"DejaVu Sans Mono:size=12:antialias=true:autohint=true"/' \
         -e '/char worddelimiters/s/= .*/= " '"'"'`\\\"()[]{}<>|";/' \
-        -e '/char shell/s;".*";"/usr/bin/tmux";' \
         -i config.def.h
 
-    # Terminfo entries are conflicting with ncurses
-    sed -i '/@tic/d' Makefile
+    echo "> Applying patches"
+    curl -O "http://st.suckless.org/patches/st-git-20160131-argbbg.diff"
+    curl -O "http://st.suckless.org/patches/st-git-20150917-hidecursor.diff"
 
-    for file in "${source[@]}"; do
-        if [[ "$file" == *.diff ]]; then
+    for file in `ls *`; do
+        if [[ "${file}" == *.diff ]]; then
             # add all patches present in source directory
-            patch -Np1 <"$srcdir/$file"
+            echo "> Applying patch: ${file}"
+            patch -Np1 < "${file}"
         fi
     done
 }
 
 build() {
-    cd "${srcdir}/${_pkgname}"
+    pushd "${srcdir}/${_pkgname}"
     make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
 package() {
-    cd "${srcdir}/${_pkgname}"
-    # export TERMINFO="${pkgdir}/usr/share/terminfo"
-    # install -d "$TERMINFO"
+    pushd "${srcdir}/${_pkgname}"
+    export TERMINFO="${pkgdir}/usr/share/terminfo"
+    install -d "$TERMINFO"
     make PREFIX=/usr DESTDIR="${pkgdir}" install
     install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
     install -Dm644 README "${pkgdir}/usr/share/doc/${pkgname}/README"
