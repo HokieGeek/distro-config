@@ -98,3 +98,7 @@ ExecStart=/usr/bin/systemctl restart netctl-auto@%i.service
 [Install]
 WantedBy=suspend.target
 EOF
+
+echo "=====> Starting NTP service"
+sudo systemctl enable ntpd.service
+sudo systemctl start ntpd.service
