@@ -23,8 +23,5 @@ curl https://gist.githubusercontent.com/HokieGeek/ee51363e1e73ac971e85/raw/95357
 sudo systemctl enable cronie.service
 sudo systemctl start cronie.service
 
-echo "=====> Adding user to various groups"
-gpasswd -a 
-
-echo "=====> Configuring neovim"
-sudo pip install neovim
+# echo "=====> Adding user to various groups"
+# gpasswd -a 
