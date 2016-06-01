@@ -24,3 +24,4 @@ picocom
 ols
 lib32-libusb-compat
 strace
+gdb
