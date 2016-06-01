@@ -16,9 +16,12 @@ ssh-add
 echo "=====> Downloading and setting up dotfiles"
 curl https://gist.githubusercontent.com/HokieGeek/ee51363e1e73ac971e85/raw/95357854ed13fed3d53c313d6bc487519fe84290/install-dotfiles.sh | /bin/bash
 
+echo "=====> Downloading and setting up bin"
+# TODO: Download the gist?
+
 # Now run some other setup scripts
-~/.bin/publishExternalIp --cron
-~/.bin/rotate-wallpaper ~/.look/bgs --cron
+/usr/local/bin/publishExternalIp --cron
+/usr/local/bin/rotate-wallpaper ~/.look/bgs --cron
 ~/.look/slim/install.sh
 sudo systemctl enable cronie.service
 sudo systemctl start cronie.service
