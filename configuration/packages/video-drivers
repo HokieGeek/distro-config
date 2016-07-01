@@ -1,4 +1,5 @@
 mesa
 xf86-video-intel
+xf86-video-dummy
 lib32-intel-dri
 lib32-mesa-libgl
