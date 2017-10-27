@@ -6,7 +6,7 @@ if [ $# -le 0 ]; then
 fi
 
 here=$(cd `dirname $0`; pwd)
-rootMnt=TODO # FIXME
+rootMnt=/ # TODO: other mount?
 directories="$@"
 
 for dir in ${directories}; do
@@ -23,12 +23,13 @@ for dir in ${directories}; do
 
     # Install all other packages
     echo "====> Installing all packages"
+	installer=yaourt
     for file in $(ls -1 | grep -v .aur | grep -v .pkgbuild); do
         if [ "${file:0:1}" == "-" ]; then
             echo ":: Skipping: ${file:1}"
         else
             echo ":: Installing ${file}"
-            ${installer} -S --needed $(cat ${file} | egrep -v '^#' | xargs) -r ${rootMnt}
+            ${installer} -S --noconfirm --needed $(cat ${file} | egrep -v '^#' | xargs) -r ${rootMnt}
         fi
     done
 

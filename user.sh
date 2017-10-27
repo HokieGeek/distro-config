@@ -2,14 +2,18 @@
 
 mydir=$(cd `dirname $0`; pwd)
 
-. ${mydir}/config.prop
+# . ${mydir}/config.prop
+myuser=andres
+#userDir=/home/andres
 
 echo "=====> Creating user '$myuser'"
 # useradd -m -g users -G wheel,storage,power,scanner,uucp -s /usr/bin/zsh ${myuser}
-useradd -m -G wheel,storage,power,scanner,uucp,lock,docker,lp,printadmin -s /usr/bin/zsh ${myuser}
+useradd -m -G wheel,storage,power,scanner,uucp,lock,lp -s /usr/bin/zsh ${myuser}
+# wheel audio docker andres kvm
+# useradd -m -G wheel,storage,power,scanner,uucp,lock,docker,lp,printadmin -s /usr/bin/zsh ${myuser}
 passwd ${myuser}
-mkdir ${userDir}/.vim
-chown ${myuser}:users ${userDir}/.vim
+# mkdir ${userDir}/.vim
+# chown ${myuser}:users ${userDir}/.vim
 
 #echo "=====> Setting home directory encryption"
 #pacman -S --needed encfs pam_encfs

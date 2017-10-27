@@ -15,5 +15,5 @@ echo "======> Installing packages"
 # Because: shiiiit!
 sudo mount -o remount,size=10G,noatime /tmp
 
-${here}/packageInstaller.sh ${here}/configuration/packages
+# ${here}/packageInstaller.sh ${here}/configuration/packages
 # TODO
