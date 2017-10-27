@@ -1,9 +1,11 @@
 alsa-utils
-apulse
-lib32-apulse
+#apulse
+#lib32-apulse
 cdparanoia
 id3
 abcde
 mpd
 ncmpcpp
-google-musicmanager
+#google-musicmanager
+pulseaudio
+pulseaudio-alsa

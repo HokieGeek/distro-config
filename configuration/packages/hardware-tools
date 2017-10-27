@@ -1,5 +1,5 @@
 acpi
-i7z-git
+#i7z-git
 cpupower
 powertop
 thinkfan
@@ -12,3 +12,4 @@ hdparm
 #pm-utils
 tlp
 acpi_call
+xorg-xbacklight

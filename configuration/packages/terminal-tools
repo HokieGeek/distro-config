@@ -15,8 +15,10 @@ sxiv
 ranger
 highlight
 atool
+w3m
+elinks
 mediainfo
 perl-image-exiftool
 wego-git
 xdotool
-mutt
+ttf-inconsolata

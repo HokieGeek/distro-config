@@ -1,7 +1,5 @@
-google-chrome-unstable
+google-chrome
 icedtea-web
-firefox
+ttf-liberation
+ttf-google-fonts-git
 lynx
-w3m
-elinks
-urlview
