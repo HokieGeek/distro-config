@@ -72,34 +72,8 @@ SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="1", RUN
 SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="0", RUN+="/usr/bin/systemctl suspend"
 EOF
 
-echo "=====> Add udev rules to specify nicer dev symlinks for some pluggable devices"
-echo "======> Bus Pirate"
-sudo tee /etc/udev/rules.d/98-buspirate.rules >/dev/null << EOF
-SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="A900ftNY", GROUP="users", MODE="0666", SYMLINK+="buspirate"
-EOF
-
-echo "======> Open Logic Sniffer"
-sudo tee /etc/udev/rules.d/98-openlogicsniffer.rules >/dev/null << EOF
-ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="fc92", MODE="0666", SYMLINK+="ols"
-EOF
-
-echo "======> FTDI Basic 3.3V & 5V"
-sudo tee /etc/udev/rules.d/98-ftdibasic.rules >/dev/null << EOF
-SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="AL01OVSC", GROUP="users", MODE="0666", SYMLINK+="ftdibasic3v3"
-SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="AH00S8CV", GROUP="users", MODE="0666", SYMLINK+="ftdibasic5v"
-EOF
-
-echo "======> Arduinos"
-sudo tee /etc/udev/rules.d/98-arduino.rules >/dev/null << EOF
-SUBSYSTEM=="tty", ATTRS{idProduct}=="6015", ATTRS{idVendor}=="0403", ATTRS{serial}=="ADAOJBOyA", GROUP="users", MODE="0666", SYMLINK+="expresscarduino"
-SUBSYSTEM=="tty", ATTRS{idProduct}=="6015", ATTRS{idVendor}=="0403", ATTRS{serial}=="ADAOKII3M", GROUP="users", MODE="0666", SYMLINK+="arduinoMetro328"
-SUBSYSTEM=="tty", ATTRS{idProduct}=="0043", ATTRS{idVendor}=="2341", ATTRS{serial}=="64935343533351116090", GROUP="users", MODE="0666", SYMLINK+="arduinoUno"
-EOF
-
-echo "=====> Add udev rules for my pok3r"
-sudo tee /etc/udev/rules.d/97-pok3r.rules >/dev/null << EOF
-SUBSYSTEM=="usb", ATTRS{idProduct}=="0141", ATTRS{idVendor}=="04d9", GROUP="users", MODE="0666", SYMLINK+="pok3r"
-EOF
+## Do the udev rules
+./udev.sh
 
 echo "=====> Battery functions and calibration"
 sudo systemctl disable systemd-rfkill.service
